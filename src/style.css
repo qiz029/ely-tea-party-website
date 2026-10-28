@@ -66,13 +66,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .pill { display: inline-flex; gap: 10px; align-items: center; margin: 0; padding: 6px 16px; border: 1px solid var(--line); border-radius: 999px; background: rgba(7, 11, 31, .45); font-size: 13px; color: var(--soft) }
 .pill b { color: var(--foam); font-weight: 600 }
 h1 { font-size: clamp(44px, 6.2vw, 78px); line-height: 1.12; letter-spacing: -1px; margin: 22px 0 18px; font-weight: 800; text-wrap: balance }
-h1 span { background: linear-gradient(90deg, #a6dcff, var(--whale) 55%, #b09bff); -webkit-background-clip: text; background-clip: text; color: transparent }
+h1 .tint { background: linear-gradient(90deg, #a6dcff, var(--whale) 55%, #b09bff); -webkit-background-clip: text; background-clip: text; color: transparent }
+/* A full-width stop inks only its left half; hang the empty half so centered lines look centered. */
+.hang { margin-right: -.5em }
 .lead { font-size: clamp(16px, 1.6vw, 20px); color: var(--soft); max-width: 640px; margin: 0 auto 32px }
 .cta { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap }
 .hero-meta { margin: 16px 0 0; font-size: 13px; color: var(--dim) }
 
 /* the tea table */
-.stage { position: relative; left: 50%; translate: -50% 0; width: max(100%, 460px); max-width: 1000px; margin-top: -24px; aspect-ratio: 1000 / 470; container-type: inline-size }
+.stage { position: relative; left: 50%; translate: -50% 0; width: max(100%, 460px); max-width: 1000px; margin-top: -24px; aspect-ratio: 1000 / 470; container-type: inline-size; pointer-events: none }
 .tea-table { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none }
 .seat { position: absolute; z-index: 1; left: calc(var(--x) * .1cqw); top: calc(var(--y) * .1cqw); width: calc(var(--s) * .1cqw); translate: -50% -100% }
 .seat.front { z-index: 3 }
