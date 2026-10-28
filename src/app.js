@@ -48,6 +48,47 @@ function setArt(img, name, folder = 'agents') {
   img.src = `/assets/agents/${name}.webp`;
 }
 
+const ready = new Set();
+const absolute = url => new URL(url, location.href).href;
+const avif = () => images.some(img => img.currentSrc.endsWith('.avif'));
+const artUrl = (name, folder) => avif() ? `/art/${folder}/${name}.avif` : `/assets/agents/${name}.webp`;
+images.forEach(img => {
+  if (img.complete && img.naturalWidth) ready.add(img.currentSrc);
+  img.addEventListener('load', () => ready.add(img.currentSrc));
+});
+
+function preload(url) {
+  const href = absolute(url);
+  if (ready.has(href)) return Promise.resolve();
+  const img = new Image();
+  img.src = href;
+  return img.decode().then(() => ready.add(href), () => {});
+}
+
+const connection = navigator.connection;
+const frugal = connection?.saveData || /2g/.test(connection?.effectiveType ?? '');
+let pending = [];
+let pumping = false;
+let dwell = 0;
+
+// One preload at a time, in the order the latest call asked for.
+async function warm(names) {
+  if (frugal) return;
+  pending = names.slice();
+  if (pumping) return;
+  pumping = true;
+  while (pending.length) await preload(artUrl(pending.shift(), 'cast'));
+  pumping = false;
+}
+
+// Everyone in the pose on show; a character picked and lingered on also gets her other poses.
+function warmAround(picked = true) {
+  const others = Object.keys(cast).map(agent => `${agent}-${castPose}`);
+  warm(others);
+  clearTimeout(dwell);
+  if (picked) dwell = setTimeout(() => warm([...poses.map(pose => `${castAgent}-${pose}`), ...others]), 1200);
+}
+
 const castView = document.querySelector('.cast');
 const castArt = document.querySelector('#cast-art');
 const quip = document.querySelector('#cast-quip');
@@ -55,6 +96,23 @@ const poseButtons = [...document.querySelectorAll('[data-pose]')];
 const rosterButtons = [...document.querySelectorAll('[data-cast]')];
 let castAgent = 'claude';
 let castPose = 'working';
+
+function showArt(name) {
+  const sharp = artUrl(name, 'cast');
+  if (ready.has(absolute(sharp))) {
+    castView.classList.remove('switching');
+    return setArt(castArt, name, 'cast');
+  }
+  // The table and roster already hold a 256 px take of some poses; show it until the sharp one arrives.
+  const rough = ready.has(absolute(artUrl(name, 'agents')));
+  castView.classList.toggle('switching', !rough);
+  if (rough) setArt(castArt, name);
+  preload(sharp).then(() => {
+    if (name !== `${castAgent}-${castPose}`) return;
+    castView.classList.remove('switching');
+    setArt(castArt, name, 'cast');
+  });
+}
 
 function showCast() {
   const who = cast[castAgent];
@@ -74,12 +132,30 @@ function showCast() {
   void quip.offsetWidth;
   quip.classList.add('say');
   castArt.alt = `${who.name}：${who.labels[poses.indexOf(castPose)]}`;
-  setArt(castArt, `${castAgent}-${castPose}`, 'cast');
+  showArt(`${castAgent}-${castPose}`);
   document.querySelector('#pose-announcement').textContent = castArt.alt;
+  warmAround();
 }
 
-poseButtons.forEach(button => button.addEventListener('click', () => { castPose = button.dataset.pose; showCast(); }));
-rosterButtons.forEach(button => button.addEventListener('click', () => { castAgent = button.dataset.cast; showCast(); }));
+function onIntent(button, name) {
+  for (const type of ['pointerenter', 'pointerdown', 'focus']) {
+    button.addEventListener(type, () => preload(artUrl(name(), 'cast')), { passive: true });
+  }
+}
+
+poseButtons.forEach(button => {
+  onIntent(button, () => `${castAgent}-${button.dataset.pose}`);
+  button.addEventListener('click', () => { castPose = button.dataset.pose; showCast(); });
+});
+rosterButtons.forEach(button => {
+  onIntent(button, () => `${button.dataset.cast}-${castPose}`);
+  button.addEventListener('click', () => { castAgent = button.dataset.cast; showCast(); });
+});
+new IntersectionObserver(([entry], observer) => {
+  if (!entry.isIntersecting) return;
+  observer.disconnect();
+  warmAround(false);
+}, { rootMargin: '800px 0px' }).observe(castView);
 
 const header = document.querySelector('.site-header');
 const onScroll = () => header.classList.toggle('scrolled', scrollY > 24);
