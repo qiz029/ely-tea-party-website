@@ -219,6 +219,25 @@ setInterval(() => {
   });
 }, 2400);
 
+// Below the hero, each block rises into place once, the first time it scrolls into view.
+const revealed = [
+  '.heading', '.tour-copy > h2', '.tour-copy > .sub', '.notes li', '.tour-shot', '.spot', '.cast-info', '.roster',
+  '.skin-line', '.platform', '.download-footnote', '.first-time', '.faq-inner > div', '.faq-list details', '.footer-inner > *',
+].join(',');
+if (!motionPreference.matches && 'IntersectionObserver' in window) {
+  const watcher = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    entry.target.classList.add('in');
+    watcher.unobserve(entry.target);
+  }), { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+  document.querySelectorAll(revealed).forEach(element => {
+    const peers = [...element.parentElement.children].filter(child => child.matches(revealed));
+    element.style.setProperty('--d', `${Math.min(peers.indexOf(element), 5) * 90}ms`);
+    element.classList.add('reveal');
+    watcher.observe(element);
+  });
+}
+
 const platform = navigator.userAgentData?.platform ?? navigator.platform;
 const current = /Mac/i.test(platform) ? 'mac' : /Win/i.test(platform) ? 'windows' : /Linux/i.test(platform) && !/Android/i.test(navigator.userAgent) ? 'linux' : null;
 if (current && navigator.maxTouchPoints < 2) {
