@@ -1,0 +1,45 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      ELY_REPO: ${{ github.workspace }}/ELYTerminal
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: website
+      # The build copies the app's screenshot, icon, license and character art from here.
+      - uses: actions/checkout@v7
+        with:
+          repository: ELY-Open-Source/ely-tea-party
+          path: ELYTerminal
+          sparse-checkout: |
+            assets/agents
+            assets/mascot
+            docs
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - run: npm run build
+        working-directory: website
+      - name: Deploy to Cloudflare
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx --yes wrangler@4.154.0 deploy
+        working-directory: website
+      - name: Report a missing token
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::warning::CLOUDFLARE_API_TOKEN is not set, so this run built the site without deploying it."
