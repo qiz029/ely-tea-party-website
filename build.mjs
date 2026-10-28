@@ -8,14 +8,28 @@ const root = path.dirname(fileURLToPath(import.meta.url));
 const dist = path.join(root, 'dist');
 const repo = path.resolve(process.env.ELY_REPO ?? path.join(root, '..', 'ELYTerminal'));
 if (!existsSync(path.join(repo, 'assets', 'agents'))) throw new Error(`website: no ELYTerminal checkout at ${repo}; set ELY_REPO`);
-const release = JSON.parse(await readFile(path.join(root, 'release.json'), 'utf8'));
-if (!/^\d+\.\d+\.\d+$/.test(release.version)) throw new Error('website: invalid release version');
-const values = { VERSION: release.version, RELEASE_URL: release.page };
-for (const platform of ['mac', 'windows', 'linux']) {
-  if (!release[platform]?.includes(release.version)) throw new Error(`website: invalid ${platform} asset`);
-  values[`${platform.toUpperCase()}_URL`] = `${release.base}/${release[platform]}`;
+// Downloads come from the Cloudflare store's latest.json, which scripts/mirror.mjs writes; release.json, GitHub's, stands in when it can't be read.
+async function stored() {
+  try {
+    const response = await fetch('https://download.elyteaparty.com/latest.json', { signal: AbortSignal.timeout(8000) });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const manifest = await response.json();
+    return {
+      VERSION: manifest.version, RELEASE_URL: manifest.pages.github, CHECKSUM_URL: manifest.checksums,
+      MAC_URL: manifest.files.mac.url, WINDOWS_URL: manifest.files.windows.url, LINUX_URL: manifest.files.linux.url,
+    };
+  } catch (error) {
+    console.log(`website: the download store answered ${error.message}, so release.json's GitHub links stand`);
+    return null;
+  }
 }
-values.CHECKSUM_URL = `${release.base}/SHA256SUMS`;
+const release = JSON.parse(await readFile(path.join(root, 'release.json'), 'utf8'));
+const values = (await stored()) ?? { VERSION: release.version, RELEASE_URL: release.page, CHECKSUM_URL: `${release.base}/SHA256SUMS` };
+for (const platform of ['mac', 'windows', 'linux']) {
+  values[`${platform.toUpperCase()}_URL`] ??= `${release.base}/${release[platform]}`;
+  if (!values[`${platform.toUpperCase()}_URL`].includes(values.VERSION)) throw new Error(`website: invalid ${platform} asset`);
+}
+if (!/^\d+\.\d+\.\d+$/.test(values.VERSION)) throw new Error('website: invalid release version');
 values.BUILT = new Date().toISOString().slice(0, 10);
 for (const [key, value] of Object.entries(values)) {
   if (key.endsWith('_URL') && (!value.startsWith('https://') || /["<>]/.test(value))) {

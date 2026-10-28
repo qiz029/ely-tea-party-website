@@ -25,9 +25,13 @@ python3 -c "from PIL import Image; Image.open('/tmp/og.png').convert('RGB').save
 
 `/releases/` and `/en/releases/` are built by `changelog.mjs` from `data/releases.json`, a snapshot of the app's published GitHub releases that `npm run releases` refreshes (set `GITHUB_TOKEN` to avoid the API's rate limit). Each deploy refreshes it first, and the workflow also runs daily, so a new app release shows up within a day without a commit here. Release notes written in both languages split by their headings: the Chinese page shows the Chinese sections, the English page the English ones. A release whose notes lack a page's language takes them from `data/releases.zh.json` or `data/releases.en.json` (Markdown keyed by tag, which covers 0.2.0–0.3.10 in Chinese); with neither, the page shows the original with a line saying so, and the build warns. `## Builds` sections, which list installer files, are left out.
 
-## Release links
+## Downloads and the update store
 
-`release.json` records the verified public release. After publishing a new app version, update its version and asset names, verify the public files, rebuild and deploy. Downloads currently go to GitHub Releases; the website does not claim R2 hosting or alter the desktop updater.
+Installers and the app's update manifest live in the R2 bucket `ely-tea-party-downloads`, served at `https://download.elyteaparty.com`: each release under `vX.Y.Z/` (the three installers and `SHA256SUMS`, cached for a year) and `latest.json` (cached 5 minutes) naming the newest version, each platform's URL, size and SHA-256, and the download and notes pages in both languages. The app (0.3.15 on) checks that manifest first and GitHub only when it can't be read; on macOS the disk image must match the listed hash before its signature checks.
+
+`scripts/mirror.mjs` fills the store from GitHub's newest published release: it downloads the files, checks them against `SHA256SUMS`, uploads them, writes `latest.json` last so it never names missing files, and drops versions beyond the newest ten (GitHub keeps every one). `.github/workflows/mirror.yml` runs it hourly and, when it copied a new release, triggers the deploy so the download buttons follow. Run it by hand with `GITHUB_TOKEN=$(gh auth token) node scripts/mirror.mjs` (add `--force` to recopy the current version).
+
+The build takes its download links and version from `latest.json`; when the store can't be read it falls back to `release.json`, GitHub's links for the last release recorded there.
 
 ## Deployment
 
