@@ -8,6 +8,17 @@ This repository sits beside a checkout of the app, [ELY-Open-Source/ely-tea-part
 
 `art/` holds the sharper animated AVIFs the page prefers: 256 px agents for the tea table, 384 px poses for the cast spotlight and the whale. `scripts/web-art.py` keys them from `../cmux-todd-ui`'s 960 px clips (or `CMUX_TODD_UI`); it needs ffmpeg with libaom. Character names, colors, pose labels and lines in `src/cast.js` are copied from the app's `src/agents.rs` and `src/agents/quips.rs`; change them there first.
 
+## Search and sharing
+
+The page carries its title, description, keywords, canonical URL, Open Graph and Twitter cards, and JSON-LD (`SoftwareApplication` plus `WebSite`) whose version and download link the build fills from `release.json`; `sitemap.xml` takes the build date. The share card `art/og.jpg` (1200×630) is `scripts/og.html` rendered by headless Chrome:
+
+```sh
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \
+  --force-device-scale-factor=1 --window-size=1200,630 --virtual-time-budget=3000 \
+  --allow-file-access-from-files --screenshot=/tmp/og.png "file://$PWD/scripts/og.html"
+python3 -c "from PIL import Image; Image.open('/tmp/og.png').convert('RGB').save('art/og.jpg', quality=88, optimize=True, progressive=True)"
+```
+
 ## Release links
 
 `release.json` records the verified public release. After publishing a new app version, update its version and asset names, verify the public files, rebuild and deploy. Downloads currently go to GitHub Releases; the website does not claim R2 hosting or alter the desktop updater.

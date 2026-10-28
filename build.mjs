@@ -15,8 +15,9 @@ for (const platform of ['mac', 'windows', 'linux']) {
   values[`${platform.toUpperCase()}_URL`] = `${release.base}/${release[platform]}`;
 }
 values.CHECKSUM_URL = `${release.base}/SHA256SUMS`;
+values.BUILT = new Date().toISOString().slice(0, 10);
 for (const [key, value] of Object.entries(values)) {
-  if (key !== 'VERSION' && (!value.startsWith('https://') || /["<>]/.test(value))) {
+  if (key.endsWith('_URL') && (!value.startsWith('https://') || /["<>]/.test(value))) {
     throw new Error(`website: invalid URL in ${key}`);
   }
 }
