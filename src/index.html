@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d1838">
+  <meta name="color-scheme" content="dark">
+  <title>Ely Tea Party — 和你的 coding agents 开场茶会</title>
+  <meta name="description" content="给 coding agents 一个有温度的终端。用会动的角色看见工作、思考和等待，和鲸鱼娘一起照看多个会话。免费下载 macOS、Windows 和 Linux 版本。">
+  <link rel="canonical" href="https://elyteaparty.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Ely Tea Party — 代码在跑，茶会正好。">
+  <meta property="og:description" content="一个有 coding agents、有鲸鱼娘，也有认真工作的终端。免费、开源，为你的下一次 coding session 留个座位。">
+  <meta property="og:url" content="https://elyteaparty.com/">
+  <meta property="og:image" content="https://elyteaparty.com/assets/screenshot.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" type="image/png" href="/assets/icon.png">
+  <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到正文</a>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="/" aria-label="Ely Tea Party 首页"><img src="/assets/icon.png" width="34" height="34" alt="">Ely Tea Party</a>
+      <nav aria-label="主导航">
+        <a href="#product">认识 Ely</a>
+        <a href="#characters">茶会成员</a>
+        <a href="https://github.com/ELY-Open-Source/ely-tea-party">GitHub</a>
+        <a class="button tea small" href="#download">下载</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="sea" aria-labelledby="hero-title">
+      <canvas id="ocean" aria-hidden="true"></canvas>
+      <div class="bubbles" aria-hidden="true"></div>
+      <div class="hero wrap">
+        <p class="pill"><b>v@@VERSION@@</b> 免费 · 开源 · macOS / Windows / Linux</p>
+        <h1 id="hero-title">代码在跑，<br><span>茶会正好。</span></h1>
+        <p class="lead">给 Claude Code、Codex、Gemini 们一个有温度的终端。<br>谁在干活、谁在思考、谁在等你回答——看一眼就知道。</p>
+        <div class="cta">
+          <a class="button tea" id="hero-download" href="#download">免费下载 <span aria-hidden="true">↓</span></a>
+          <a class="button ghost" href="https://github.com/ELY-Open-Source/ely-tea-party">在 GitHub 上看看</a>
+        </div>
+        <p class="hero-meta" id="hero-meta">macOS · Windows · Linux，免费使用，MIT 开源</p>
+
+        <div class="stage" role="img" aria-label="六位 agent 角色和鲸鱼娘围坐在圆桌旁喝茶，Grok 娘在一旁弹琴，头顶显示各自的状态">
+            <div class="seat back end chip-left" data-agent="pi" data-state="thinking" style="--x:196;--y:310;--s:136"><span class="state"><i></i><b>Pi</b><em>思考中</em></span><picture><source type="image/avif" srcset="/art/agents/pi-thinking.avif"><img class="animated" src="/assets/agents/pi-thinking.webp" width="256" height="256" alt=""></picture></div>
+            <div class="seat back" data-agent="gpt" data-state="thinking" style="--x:282;--y:291;--s:140"><span class="state"><i></i><b>GPT</b><em>思考中</em></span><picture><source type="image/avif" srcset="/art/agents/gpt-thinking.avif"><img class="animated" src="/assets/agents/gpt-thinking.webp" width="256" height="256" alt=""></picture></div>
+            <div class="seat back" data-agent="claude" data-state="working" style="--x:388;--y:279;--s:142"><span class="state"><i></i><b>Claude</b><em>工作中</em></span><picture><source type="image/avif" srcset="/art/agents/claude-working.avif"><img class="animated" src="/assets/agents/claude-working.webp" width="256" height="256" alt=""></picture></div>
+            <div class="seat back host" style="--x:500;--y:294;--s:206"><span class="state"><i></i><b>鲸鱼娘</b><em>照看着</em></span><picture><source type="image/avif" srcset="/art/mascot/whale-idle.avif"><img class="animated" src="/assets/mascot/whale-idle.webp" width="400" height="400" alt=""></picture></div>
+            <div class="seat back" data-agent="gemini" data-state="needs_input" style="--x:612;--y:279;--s:142"><span class="state"><i></i><b>Gemini</b><em>等你回答</em></span><picture><source type="image/avif" srcset="/art/agents/gemini-needs_input.avif"><img class="animated" src="/assets/agents/gemini-needs_input.webp" width="256" height="256" alt=""></picture></div>
+            <div class="seat back" data-agent="kimi" data-state="working" style="--x:718;--y:291;--s:140"><span class="state"><i></i><b>Kimi</b><em>工作中</em></span><picture><source type="image/avif" srcset="/art/agents/kimi-working.avif"><img class="animated" src="/assets/agents/kimi-working.webp" width="256" height="256" alt=""></picture></div>
+            <div class="seat back end chip-right" data-agent="opencode" data-state="working" style="--x:804;--y:310;--s:136"><span class="state"><i></i><b>OpenCode</b><em>工作中</em></span><picture><source type="image/avif" srcset="/art/agents/opencode-working.avif"><img class="animated" src="/assets/agents/opencode-working.webp" width="256" height="256" alt=""></picture></div>
+            <svg class="tea-table" viewBox="0 0 1000 470" aria-hidden="true">
+              <defs>
+                <radialGradient id="cloth-top" cx=".5" cy=".42" r=".62"><stop offset="0" stop-color="#fbf5e6"/><stop offset=".72" stop-color="#eee1c5"/><stop offset="1" stop-color="#d8c7a4"/></radialGradient>
+                <linearGradient id="cloth-side" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e3d5b6"/><stop offset=".6" stop-color="#bdb59f"/><stop offset="1" stop-color="#7f8db6"/></linearGradient>
+                <linearGradient id="folds" gradientUnits="userSpaceOnUse" x1="0" x2="44" spreadMethod="repeat"><stop offset="0" stop-color="#3c3020" stop-opacity="0"/><stop offset=".5" stop-color="#3c3020" stop-opacity=".1"/><stop offset="1" stop-color="#3c3020" stop-opacity="0"/></linearGradient>
+                <radialGradient id="lamp"><stop offset="0" stop-color="#ffd08a" stop-opacity=".38"/><stop offset="1" stop-color="#ffd08a" stop-opacity="0"/></radialGradient>
+                <radialGradient id="floor"><stop offset="0" stop-color="#4f86ff" stop-opacity=".45"/><stop offset="1" stop-color="#4f86ff" stop-opacity="0"/></radialGradient>
+                <radialGradient id="porcelain" cx=".38" cy=".32" r=".8"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#e9effb"/><stop offset="1" stop-color="#c5d3ee"/></radialGradient>
+                <g id="cup">
+                  <ellipse cy="1" rx="18" ry="5.5" fill="#3c3020" opacity=".12"/>
+                  <ellipse rx="17" ry="5.5" fill="#f2f6ff" stroke="#b9c8e6"/>
+                  <path d="M-11 -14H11Q11 -1 0 0Q-11 -1 -11 -14Z" fill="url(#porcelain)"/>
+                  <path d="M-10.5 -8.5Q0 -4 10.5 -8.5" stroke="#3f6fd8" stroke-width="1.6" fill="none"/>
+                  <path d="M11 -11q7 0 6 5q-1 4 -7 3" stroke="#e9effb" stroke-width="2.4" fill="none"/>
+                  <ellipse cy="-14" rx="11" ry="3" fill="#b8743c" stroke="#fff" stroke-width="1.2"/>
+                </g>
+              </defs>
+              <ellipse cx="500" cy="440" rx="460" ry="26" fill="url(#floor)"/>
+              <path d="M170 300L166 362A334 80 0 0 0 834 362L830 300A330 78 0 0 1 170 300Z" fill="url(#cloth-side)"/>
+              <path d="M170 300L166 362A334 80 0 0 0 834 362L830 300A330 78 0 0 1 170 300Z" fill="url(#folds)"/>
+              <path d="M166 359A334 80 0 0 0 834 359" stroke="#f7f0de" stroke-width="5" fill="none"/>
+              <path d="M166 366A334 80 0 0 0 834 366" stroke="#fffaf0" stroke-width="9" stroke-linecap="round" stroke-dasharray="0 15" fill="none"/>
+              <ellipse cx="500" cy="300" rx="330" ry="78" fill="url(#cloth-top)"/>
+              <ellipse cx="500" cy="300" rx="321" ry="73" fill="none" stroke="#fffaf0" stroke-opacity=".7" stroke-width="2" stroke-dasharray="2 7"/>
+              <ellipse cx="500" cy="290" rx="270" ry="62" fill="url(#lamp)"/>
+              <use href="#cup" transform="translate(220 300) scale(0.9)"/>
+              <use href="#cup" transform="translate(300 272) scale(0.95)"/>
+              <use href="#cup" transform="translate(398 254) scale(1)"/>
+              <use href="#cup" transform="translate(602 254) scale(1)"/>
+              <use href="#cup" transform="translate(700 272) scale(0.95)"/>
+              <use href="#cup" transform="translate(780 300) scale(0.9)"/>
+              <g transform="translate(408 322)">
+                <ellipse rx="32" ry="8.5" fill="#f4f7ff" stroke="#c4d1ea"/>
+                <ellipse cx="-14" cy="-5" rx="9" ry="5.5" fill="#ffb3c7"/><ellipse cx="14" cy="-5" rx="9" ry="5.5" fill="#c9b3ff"/>
+                <ellipse cx="0" cy="-3" rx="9" ry="5.5" fill="#9ff0d0"/><ellipse cx="2" cy="-11" rx="8.5" ry="5" fill="#ffe08a"/>
+                <path d="M-23 -5h18M5 -5h18M-9 -3h18M-6 -11h17" stroke="#fff" stroke-opacity=".8" stroke-width="1.4"/>
+              </g>
+              <g transform="translate(594 324)">
+                <ellipse rx="28" ry="7.5" fill="#f4f7ff" stroke="#c4d1ea"/>
+                <path d="M-18 -4V-24H18V-4Q0 2 -18 -4Z" fill="#fff4e2"/>
+                <path d="M-18 -15Q0 -10 18 -15V-11Q0 -6 -18 -11Z" fill="#ffb3c7"/>
+                <ellipse cy="-24" rx="18" ry="5" fill="#fffaf2"/>
+                <circle cy="-30" r="5.5" fill="#ff5b6e"/><path d="M-3 -35l3 2 3 -2" stroke="#3fbf7a" stroke-width="2" fill="none"/>
+              </g>
+              <g transform="translate(500 286)">
+                <ellipse cy="26" rx="44" ry="8" fill="#3c3020" opacity=".14"/>
+                <path d="M26 -2C44 -4 46 -22 56 -28L60 -24C52 -14 52 6 30 12Z" fill="url(#porcelain)" stroke="#a9bde2"/>
+                <path d="M-30 -12C-55 -14 -55 18 -28 14" stroke="#eef3ff" stroke-width="7" stroke-linecap="round" fill="none"/>
+                <ellipse cy="22" rx="21" ry="5.5" fill="#c9d6ee"/>
+                <ellipse rx="35" ry="27" fill="url(#porcelain)"/>
+                <path d="M-33 3Q0 17 33 3" stroke="#3f6fd8" stroke-width="3.5" fill="none"/>
+                <path d="M-24 -9Q-17 -15 -10 -9T4 -9T18 -9" stroke="#3f6fd8" stroke-width="2" fill="none"/>
+                <circle cx="-4" cy="11" r="2" fill="#3f6fd8"/><circle cx="8" cy="11" r="2" fill="#3f6fd8"/><circle cx="-16" cy="9" r="2" fill="#3f6fd8"/><circle cx="20" cy="9" r="2" fill="#3f6fd8"/>
+                <ellipse cx="-13" cy="-9" rx="7" ry="11" fill="#fff" opacity=".6"/>
+                <ellipse cy="-25" rx="18" ry="5.5" fill="#eef3ff" stroke="#a9bde2"/>
+                <circle cy="-32" r="5" fill="#4f86ff"/>
+              </g>
+              <g class="steam" stroke="#fff" stroke-width="2.5" stroke-linecap="round" fill="none">
+                <path d="M558 252q-6 -10 0 -20t0 -20"/>
+                <path d="M398 236q-5 -8 0 -16t0 -16"/>
+                <path d="M602 236q-5 -8 0 -16t0 -16"/>
+              </g>
+            </svg>
+            <div class="seat front chip-right" data-agent="grok" data-state="working" style="--x:868;--y:446;--s:150"><span class="state"><i></i><b>Grok</b><em>工作中</em></span><picture><source type="image/avif" srcset="/art/agents/grok-working.avif"><img class="animated" src="/assets/agents/grok-working.webp" width="256" height="256" alt=""></picture></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="strip" aria-label="支持的 agent">
+      <div class="wrap"><span>熟悉的工具</span><b>Claude Code</b><b>Codex</b><b>Gemini</b><b>Kimi</b><b>Grok</b><b>OpenCode</b><b>Pi</b><b>dscode</b></div>
+    </div>
+
+    <section class="section tour" id="product" aria-labelledby="product-title">
+      <div class="wrap tour-grid">
+        <div class="tour-copy">
+          <h2 id="product-title">每个会话，<br>都有自己的小表情</h2>
+          <p class="sub">熟悉的命令行依然是主角。角色、状态、Git 和文件，就在它身边。</p>
+          <ol class="notes">
+            <li><span class="pin-no">1</span><div><h3>不用挨个问「好了吗」</h3><p>装好 agent hooks，角色会跟着任务变。比如左栏的 Kimi 兔：头上冒出红色感叹号，「递卷轴等你」——她在等你回答。</p></div></li>
+            <li><span class="pin-no">2</span><div><h3>鲸鱼娘趴在窗边</h3><p>有人等你时，她也会举起感叹号。点她一下，等你的会话排在最前，一键跳回那个终端。</p></div></li>
+            <li><span class="pin-no">3</span><div><h3>可爱，也认真工作</h3><p>Git 改动与提交、文件、活动时间线和 Codex 用量都在右栏。会话能恢复，抽屉终端随手跑一条命令。</p></div></li>
+          </ol>
+        </div>
+        <figure class="tour-shot">
+          <img src="/assets/screenshot.png" width="2400" height="1691" loading="lazy" alt="Ely Tea Party 应用截图：左侧角色会话，中间 Codex 终端，右侧 Git、文件和用量面板">
+          <span class="pin" style="--px:17.6%;--py:45.5%" aria-hidden="true">1</span>
+          <span class="pin" style="--px:22.5%;--py:3%" aria-hidden="true">2</span>
+          <span class="pin" style="--px:81.5%;--py:17.3%" aria-hidden="true">3</span>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section party" id="characters" aria-labelledby="party-title">
+      <div class="wrap">
+        <div class="heading split">
+          <h2 id="party-title">今天，谁和你一起写代码？</h2>
+          <p class="sub">八位老朋友，各有各的忙法。点一个头像，看看她平时都在干什么。</p>
+        </div>
+        <div class="cast" style="--tint:#D97757">
+          <div class="spot">
+            <p class="quip" id="cast-quip">交给学姐吧～</p>
+            <picture><source type="image/avif" srcset="/art/cast/claude-working.avif"><img class="animated" id="cast-art" src="/assets/agents/claude-working.webp" width="384" height="384" loading="lazy" alt="Claude 学姐：丝带多线程"></picture>
+          </div>
+          <div class="cast-info">
+            <p class="cast-count"><span id="cast-index">01</span> / 08</p>
+            <h3 id="cast-name">Claude 学姐</h3>
+            <p class="cast-meta"><code id="cast-tool">Claude Code</code><span id="cast-line">认真，是她的温柔。</span></p>
+            <div class="poses" role="group" aria-label="她的动作">
+              <button type="button" data-pose="working" aria-pressed="true"><small>干活</small><span>丝带多线程</span></button>
+              <button type="button" data-pose="working-research" aria-pressed="false"><small>查资料</small><span>翻魔导书</span></button>
+              <button type="button" data-pose="working-special" aria-pressed="false"><small>放大招</small><span>终曲·彩带炮</span></button>
+              <button type="button" data-pose="working-slack" aria-pressed="false"><small>摸鱼</small><span>偷吃蛋糕（摸鱼）</span></button>
+              <button type="button" data-pose="thinking" aria-pressed="false"><small>想事情</small><span>品茶沉思</span></button>
+              <button type="button" data-pose="needs_input" aria-pressed="false"><small>等你</small><span>等你决定</span></button>
+              <button type="button" data-pose="idle" aria-pressed="false"><small>闲着</small><span>下午茶</span></button>
+              <button type="button" data-pose="sleeping" aria-pressed="false"><small>睡着</small><span>打盹</span></button>
+            </div>
+            <button type="button" class="motion-toggle" id="motion-toggle" aria-pressed="false">暂停动画</button>
+          </div>
+        </div>
+        <div class="roster" role="group" aria-label="选择角色">
+          <button type="button" data-cast="claude" aria-pressed="true" style="--tint:#D97757"><picture><source type="image/avif" srcset="/art/agents/claude-working.avif"><img class="animated" src="/assets/agents/claude-working.webp" width="256" height="256" loading="lazy" alt=""></picture><span>Claude 学姐</span></button>
+          <button type="button" data-cast="gpt" aria-pressed="false" style="--tint:#10A37F"><picture><source type="image/avif" srcset="/art/agents/gpt-working.avif"><img class="animated" src="/assets/agents/gpt-working.webp" width="256" height="256" loading="lazy" alt=""></picture><span>GPT 娘</span></button>
+          <button type="button" data-cast="deepseek" aria-pressed="false" style="--tint:#4D6BFE"><picture><source type="image/avif" srcset="/art/agents/deepseek-working.avif"><img class="animated" src="/assets/agents/deepseek-working.webp" width="256" height="256" loading="lazy" alt=""></picture><span>鲸鱼娘</span></button>
+          <button type="button" data-cast="grok" aria-pressed="false" style="--tint:#D4D4D4"><picture><source type="image/avif" srcset="/art/agents/grok-working.avif"><img class="animated" src="/assets/agents/grok-working.webp" width="256" height="256" loading="lazy" alt=""></picture><span>Grok 娘</span></button>
+          <button type="button" data-cast="kimi" aria-pressed="false" style="--tint:#8FA8FF"><picture><source type="image/avif" srcset="/art/agents/kimi-working.avif"><img class="animated" src="/assets/agents/kimi-working.webp" width="256" height="256" loading="lazy" alt=""></picture><span>Kimi 兔</span></button>
+          <button type="button" data-cast="gemini" aria-pressed="false" style="--tint:#A855F7"><picture><source type="image/avif" srcset="/art/agents/gemini-working.avif"><img class="animated" src="/assets/agents/gemini-working.webp" width="256" height="256" loading="lazy" alt=""></picture><span>Gemini 星</span></button>
+          <button type="button" data-cast="pi" aria-pressed="false" style="--tint:#E3342F"><picture><source type="image/avif" srcset="/art/agents/pi-working.avif"><img class="animated" src="/assets/agents/pi-working.webp" width="256" height="256" loading="lazy" alt=""></picture><span>Pi 酱</span></button>
+          <button type="button" data-cast="opencode" aria-pressed="false" style="--tint:#FAB283"><picture><source type="image/avif" srcset="/art/agents/opencode-working.avif"><img class="animated" src="/assets/agents/opencode-working.webp" width="256" height="256" loading="lazy" alt=""></picture><span>OpenCode 娘</span></button>
+        </div>
+        <p class="skin-line">也可以带上你自己的小伙伴：在「设置 → 角色」导入图片或 .elyskin 形象包，替换任意角色。<a class="text-link" href="https://github.com/ELY-Open-Source/ely-tea-party/blob/main/docs/character-skins.md">形象制作说明 ↗</a></p>
+        <p class="sr-only" id="pose-announcement" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <section class="section download" id="download" aria-labelledby="download-title">
+      <div class="wrap">
+        <div class="heading split">
+          <h2 id="download-title">下一次写代码，一起吧。</h2>
+          <p class="sub"><span class="release-badge">v@@VERSION@@</span> <a class="text-link" href="@@RELEASE_URL@@">查看更新记录 ↗</a></p>
+        </div>
+        <div class="platforms">
+          <div class="platform" data-platform="mac"><div class="os-icon" aria-hidden="true">⌘</div><div class="os-name"><h3>macOS</h3><p class="os-spec">Apple silicon · macOS 11+</p></div><p class="os-note">打开磁盘映像，把 Ely Tea Party 拖进 Applications。已签名并完成 Apple 公证。</p><a class="button download-button" href="@@MAC_URL@@">下载 .dmg <span aria-hidden="true">↓</span></a></div>
+          <div class="platform" data-platform="windows"><div class="os-icon windows-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="os-name"><h3>Windows</h3><p class="os-spec">x86_64 · Windows 10+</p></div><p class="os-note">解压后运行 ely-tea-party.exe。目前未签名；Windows 版暂不支持自动识别 agent 角色。</p><a class="button download-button" href="@@WINDOWS_URL@@">下载 .zip <span aria-hidden="true">↓</span></a></div>
+          <div class="platform" data-platform="linux"><div class="os-icon" aria-hidden="true">&gt;_</div><div class="os-name"><h3>Linux</h3><p class="os-spec">x86_64 · glibc 2.35+</p></div><p class="os-note">解压后安装；需要 libxkbcommon、libxkbcommon-x11 和 libxcb。<a href="https://github.com/ELY-Open-Source/ely-tea-party#install">安装步骤 ↗</a></p><a class="button download-button" href="@@LINUX_URL@@">下载 .tar.gz <span aria-hidden="true">↓</span></a></div>
+        </div>
+        <p class="download-footnote">安装包由 GitHub Releases 提供 · 免费使用 · MIT 开源 · <a href="@@CHECKSUM_URL@@">SHA256 校验文件 ↗</a></p>
+        <p class="first-time"><b>第一次来？</b>安装并打开 Ely<span aria-hidden="true">→</span>启动你熟悉的 coding agent<span aria-hidden="true">→</span>在「设置 → 终端 → Agent hooks」安装 hooks，重启 agent</p>
+      </div>
+    </section>
+
+    <section class="section faq" aria-labelledby="faq-title">
+      <div class="wrap faq-inner">
+        <div><p class="kicker">入座之前</p><h2 id="faq-title">你可能想知道</h2></div>
+        <div class="faq-list">
+          <details><summary>这是一个新的 AI 模型吗？</summary><p>不是。Ely Tea Party 是一个原生终端，你仍然使用自己的 Claude Code、Codex、Gemini 等工具及其账号。Ely 把会话状态变成动画角色，并提供会话管理、Git、文件和活动信息。</p></details>
+          <details><summary>需要填写 API Key 才能使用吗？</summary><p>终端、角色和本地任务卡不需要 Ely 的 API Key。你的 coding agent 按自身方式登录。鲸鱼娘的 AI 解释和建议是可选功能，开启后才需要配置对应的模型服务。</p></details>
+          <details><summary>可以换成自己的角色吗？</summary><p>可以。在「设置 → 角色」导入 PNG、APNG、GIF、WebP 或完整的 .elyskin 形象包，也可以给不同动作配置不同动画。你能导出自己的形象包分享给朋友；网站形象市场尚未开放。</p></details>
+          <details><summary>和 ELYTerminal 是什么关系？</summary><p>Ely Tea Party 是获得作者许可的 ELYTerminal 分支。底层终端和原有设计来自 Zachary Zhang 与 ELYTerminal；这个分支加入了 coding agent 角色、鲸鱼娘和相关工作流。<a href="https://github.com/ELY-Open-Source/ELYTerminal">认识原项目 ↗</a></p></details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div><a class="brand" href="/"><img src="/assets/icon.png" width="30" height="30" alt="">Ely Tea Party</a><p>A terminal where your coding agents come to tea.</p></div>
+      <div class="footer-links"><a href="https://github.com/ELY-Open-Source/ely-tea-party">GitHub ↗</a><a href="https://github.com/ELY-Open-Source/ely-tea-party/issues">反馈问题 ↗</a><a href="/LICENSE.txt">MIT License</a></div>
+    </div>
+  </footer>
+</body>
+</html>
