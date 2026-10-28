@@ -157,6 +157,15 @@ new IntersectionObserver(([entry], observer) => {
   warmAround(false);
 }, { rootMargin: '800px 0px' }).observe(castView);
 
+const tourShot = document.querySelector('.tour-shot');
+const tourImage = tourShot.querySelector('img');
+if (!tourImage.complete) {
+  tourShot.classList.add('waiting');
+  const shown = () => tourShot.classList.remove('waiting');
+  tourImage.addEventListener('load', shown, { once: true });
+  tourImage.addEventListener('error', shown, { once: true });
+}
+
 const header = document.querySelector('.site-header');
 const onScroll = () => header.classList.toggle('scrolled', scrollY > 24);
 addEventListener('scroll', onScroll, { passive: true });

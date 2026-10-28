@@ -124,6 +124,9 @@ h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.2; margin: 0 0 14px; le
 .notes p { margin: 0; color: var(--soft); font-size: 15px }
 .pin-no, .pin { width: 28px; height: 28px; border-radius: 50%; background: var(--tea); color: var(--tea-ink); font: 700 14px/28px var(--sans); text-align: center }
 .tour-shot { position: relative; margin: 0 }
+.tour-shot picture { display: block }
+.tour-shot img, .tour-shot .pin { transition: opacity .4s }
+.tour-shot.waiting img, .tour-shot.waiting .pin { opacity: 0 }
 .tour-shot::before { content: ""; position: absolute; inset: 14% 8% 4%; z-index: -1; background: radial-gradient(closest-side, rgba(79, 134, 255, .4), transparent); filter: blur(40px) }
 .pin { position: absolute; left: var(--px); top: var(--py); translate: -50% -50%; box-shadow: 0 0 0 5px rgba(255, 207, 122, .2), 0 6px 16px rgba(0, 0, 0, .4); transition: scale .2s }
 .pin::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--tea); animation: ping 2.4s ease-out infinite }

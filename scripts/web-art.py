@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Keys cmux-todd-ui's 960 px clips into the website's sharper animated AVIFs.
+"""Keys cmux-todd-ui's 960 px clips into the website's sharper animated AVIFs,
+and sizes the app's screenshot from ../ELYTerminal (or ELY_REPO) for the tour.
 
     scripts/web-art.py [NAME ...]
 
@@ -7,8 +8,8 @@ The app's 112 px agents blur when a page shows them at 128 CSS px on a Retina
 display; the site reads these from art/ and falls back to the app's WebPs where
 AVIF is missing. Its cast spotlight shows every pose at 384 px. The clips come
 from ../cmux-todd-ui, or wherever CMUX_TODD_UI points. Names like
-claude-working, cast/claude-idle or whale-idle pick single outputs; with none
-it writes them all. Needs ffmpeg with libaom.
+claude-working, cast/claude-idle, whale-idle or shot pick single outputs; with
+none it writes them all. Needs ffmpeg with libaom.
 """
 
 import os
@@ -27,6 +28,8 @@ CRF = 36
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "art"
 UI = Path(os.environ.get("CMUX_TODD_UI", ROOT.parent / "cmux-todd-ui"))
+APP = Path(os.environ.get("ELY_REPO", ROOT.parent / "ELYTerminal"))
+SHOT_WIDTHS = [1200, 1800, 2400]
 
 
 def save(frames: list, target: Path) -> None:
@@ -44,7 +47,25 @@ def save(frames: list, target: Path) -> None:
     print(f"{target.relative_to(OUT)}: {len(frames)} frames, {target.stat().st_size // 1024} KB")
 
 
+def shots() -> None:
+    from PIL import Image
+
+    image = Image.open(APP / "docs" / "screenshot.png")
+    (OUT / "shot").mkdir(parents=True, exist_ok=True)
+    for width in SHOT_WIDTHS:
+        sized = image.resize((width, round(image.height * width / image.width)), Image.LANCZOS)
+        for format, options in (("avif", {"quality": 60}), ("webp", {"quality": 82, "method": 6})):
+            target = OUT / "shot" / f"screenshot-{width}.{format}"
+            sized.save(target, **options)
+            print(f"{target.relative_to(OUT)}: {target.stat().st_size // 1024} KB")
+
+
 def main() -> None:
+    names = sys.argv[1:]
+    if not names or "shot" in names:
+        shots()
+    if names and all(name == "shot" for name in names):
+        return
     if not (UI / "scripts" / "video.py").exists():
         sys.exit(f"web-art: no cmux-todd-ui at {UI}\n{__doc__}")
     sys.path.insert(0, str(UI / "scripts"))
@@ -53,7 +74,6 @@ def main() -> None:
     jobs = [(f"{agent}-{state}", AGENT_SIDE, OUT / "agents" / f"{agent}-{state}.avif") for agent in AGENTS for state in STATES]
     jobs += [(f"{agent}-{pose}", CAST_SIDE, OUT / "cast" / f"{agent}-{pose}.avif") for agent in AGENTS for pose in POSES]
     jobs += [(f"deepseek-{pose}", side, OUT / "mascot" / f"whale-{pose}.avif") for pose, side in WHALE.items()]
-    names = sys.argv[1:]
     only = {name for name in names if "/" in name}
     with tempfile.TemporaryDirectory() as tmp:
         video.OUT = Path(tmp)
