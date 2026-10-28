@@ -16,7 +16,7 @@ export const cast = {
     quips: ['……收到。', '启动平行实验。', '实验，爆炸了。', '数据出来了。', '（举牌）请批准。', '实验成功！！'],
   },
   deepseek: {
-    name: '鲸鱼娘', tool: 'dscode / DeepSeek', line: '深潜代码，也爱偷个小懒。', color: '#4D6BFE',
+    name: '鲸鱼娘', tool: 'dscode / DeepSeek', url: 'https://github.com/qiz029/dscode', line: '深潜代码，也爱偷个小懒。', color: '#4D6BFE',
     labels: ['边吃边干活', '潜入文档海', '过热喷水', '躺平吃零食（摸鱼）', '盯着米饭想', '等你投喂', '干饭中', '吃撑睡着了'],
     quips: ['先干活，再开饭！', '叫小鲸鱼们一起上！', '呜，噎住了……', '终于煮熟了！', '要投喂才能继续～', '吃饱干完，收工！'],
   },

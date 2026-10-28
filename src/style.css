@@ -103,6 +103,9 @@ h1 span { background: linear-gradient(90deg, #a6dcff, var(--whale) 55%, #b09bff)
 .strip .wrap { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px 36px; padding: 22px 0; color: var(--soft); font-size: 15px }
 .strip b { font-weight: 600 }
 .strip span { color: var(--dim); font-size: 13px }
+.strip a { font-weight: 600; text-decoration: underline; text-decoration-color: rgba(156, 200, 255, .35); text-underline-offset: 4px }
+.strip a:hover, .cast-tool[href]:hover { color: var(--text); text-decoration-color: currentColor }
+.cast-tool[href] { text-decoration: underline; text-decoration-color: color-mix(in srgb, var(--tint) 45%, transparent); text-underline-offset: 3px }
 
 /* sections */
 .section { padding: 120px 0 }
@@ -149,7 +152,7 @@ h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.2; margin: 0 0 14px; le
 .cast-count { margin: 0 0 6px; font: 600 13px var(--mono); color: var(--dim) }
 .cast-info h3 { margin: 0 0 12px; font-size: clamp(34px, 4vw, 48px); line-height: 1.15; font-weight: 800 }
 .cast-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 0 0 28px; color: var(--soft); font-size: 17px }
-.cast-meta code { font: 13px var(--mono); color: var(--tint); padding: 3px 10px; border-radius: 999px; background: color-mix(in srgb, var(--tint) 16%, transparent) }
+.cast-tool { font: 13px var(--mono); color: var(--tint); padding: 3px 10px; border-radius: 999px; background: color-mix(in srgb, var(--tint) 16%, transparent) }
 .poses { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px }
 .poses button { display: flex; align-items: baseline; gap: 10px; padding: 10px 14px; border-radius: 12px; border: 1px solid transparent; background: rgba(156, 200, 255, .05); color: var(--soft); text-align: left; font-size: 15px; transition: background .2s, color .2s, border-color .2s }
 .poses small { flex: none; width: 3.4em; font-size: 12px; color: var(--dim) }

@@ -119,7 +119,10 @@ function showCast() {
   castView.style.setProperty('--tint', who.color);
   document.querySelector('#cast-index').textContent = String(Object.keys(cast).indexOf(castAgent) + 1).padStart(2, '0');
   document.querySelector('#cast-name').textContent = who.name;
-  document.querySelector('#cast-tool').textContent = who.tool;
+  const tool = document.querySelector('#cast-tool');
+  tool.textContent = who.url ? `${who.tool} ↗` : who.tool;
+  if (who.url) tool.href = who.url;
+  else tool.removeAttribute('href');
   document.querySelector('#cast-line').textContent = who.line;
   poseButtons.forEach((button, i) => {
     button.querySelector('span').textContent = who.labels[i];
