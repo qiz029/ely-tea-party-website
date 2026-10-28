@@ -21,6 +21,10 @@ The page carries its title, description, keywords, canonical URL, Open Graph and
 python3 -c "from PIL import Image; Image.open('/tmp/og.png').convert('RGB').save('art/og.jpg', quality=88, optimize=True, progressive=True)"
 ```
 
+## Changelog
+
+`/releases/` and `/en/releases/` are built by `changelog.mjs` from `data/releases.json`, a snapshot of the app's published GitHub releases that `npm run releases` refreshes (set `GITHUB_TOKEN` to avoid the API's rate limit). Each deploy refreshes it first, and the workflow also runs daily, so a new app release shows up within a day without a commit here. Release notes written in both languages split by their headings: the Chinese page shows the Chinese sections, the English page the English ones; notes in one language show on both pages with a line saying so. `## Builds` sections, which list installer files, are left out.
+
 ## Release links
 
 `release.json` records the verified public release. After publishing a new app version, update its version and asset names, verify the public files, rebuild and deploy. Downloads currently go to GitHub Releases; the website does not claim R2 hosting or alter the desktop updater.

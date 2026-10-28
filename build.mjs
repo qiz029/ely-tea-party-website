@@ -2,6 +2,7 @@ import { existsSync } from 'node:fs';
 import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
+import { renderChangelog } from './changelog.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const dist = path.join(root, 'dist');
@@ -24,6 +25,7 @@ for (const [key, value] of Object.entries(values)) {
 await rm(dist, { recursive: true, force: true });
 await mkdir(path.join(dist, 'assets', 'agents'), { recursive: true });
 await mkdir(path.join(dist, 'assets', 'mascot'), { recursive: true });
+let pages;
 for (const file of await readdir(path.join(root, 'src'))) {
   let content = await readFile(path.join(root, 'src', file), 'utf8');
   content = content.replace(/@@([A-Z_]+)@@/g, (_, key) => {
@@ -31,7 +33,20 @@ for (const file of await readdir(path.join(root, 'src'))) {
     return values[key];
   });
   await writeFile(path.join(dist, file), content);
-  if (file === 'index.html') await writeEnglish(content);
+  if (file === 'index.html') pages = { zh: content, en: await writeEnglish(content) };
+}
+
+const releases = JSON.parse(await readFile(path.join(root, 'data', 'releases.json'), 'utf8'));
+for (const [lang, page] of Object.entries(pages)) {
+  const home = lang === 'en' ? '/en/' : '/';
+  const pick = tag => page.match(new RegExp(`<${tag} class="site-${tag}">[\\s\\S]*?</${tag}>`))[0];
+  const chrome = {
+    header: pick('header').replace('class="site-header"', 'class="site-header scrolled"')
+      .replace(/href="#/g, `href="${home}#`).replace(/(class="lang" href="[^"]*)"/, '$1releases/"'),
+    footer: pick('footer'),
+  };
+  await mkdir(path.join(dist, home, 'releases'), { recursive: true });
+  await writeFile(path.join(dist, home, 'releases', 'index.html'), renderChangelog(lang, releases, chrome));
 }
 
 // /en/ is the Chinese page with every phrase in i18n/en.json swapped; any phrase left over fails the build.
@@ -45,6 +60,7 @@ async function writeEnglish(page) {
   if (left) throw new Error(`website: untranslated text on /en/: ${left[0]}`);
   await mkdir(path.join(dist, 'en'), { recursive: true });
   await writeFile(path.join(dist, 'en', 'index.html'), page);
+  return page;
 }
 for (const file of await readdir(path.join(repo, 'assets', 'agents'))) {
   if (/-(working(-research|-special|-slack)?|thinking|needs_input|idle|sleeping)\.webp$/.test(file)) {

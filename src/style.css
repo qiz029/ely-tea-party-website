@@ -206,6 +206,34 @@ h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.2; margin: 0 0 14px; le
 .faq-list p { margin: 0 4px 22px; color: var(--soft) }
 .faq-list p a { color: var(--foam) }
 
+/* changelog */
+.releases { padding: 136px 0 96px }
+.releases h1 { margin: 0 0 12px; font-size: clamp(38px, 5vw, 58px); text-align: left }
+.releases > .sub { max-width: 640px }
+.timeline { position: relative; list-style: none; margin: 64px 0 0; padding: 0 }
+.timeline::before { content: ""; position: absolute; left: 180px; top: 12px; bottom: 0; width: 2px; background: linear-gradient(180deg, rgba(156, 200, 255, .45), rgba(156, 200, 255, .08)) }
+.release { position: relative; display: grid; grid-template-columns: 180px 1fr; gap: 0 56px; padding-bottom: 64px; scroll-margin-top: 96px }
+.release::before { content: ""; position: absolute; left: 175px; top: 10px; width: 12px; height: 12px; border-radius: 50%; background: var(--deep); border: 2px solid var(--foam) }
+.release.newest::before { background: var(--tea); border-color: var(--tea); box-shadow: 0 0 0 6px rgba(255, 207, 122, .18) }
+.when { position: sticky; top: 96px; align-self: start; padding-right: 28px; text-align: right }
+.when h2 { margin: 0; font: 700 22px var(--mono); letter-spacing: 0 }
+.when h2 a:hover { color: var(--foam) }
+.when time { display: block; margin-top: 2px; font-size: 14px; color: var(--dim) }
+.newest-badge { display: inline-block; margin-top: 8px; padding: 1px 10px; border-radius: 999px; background: rgba(255, 207, 122, .14); color: var(--tea); font-size: 12px; font-weight: 600 }
+.release-body { min-width: 0; color: var(--soft); font-size: 15px }
+.release-body h3 { margin: 0 0 10px; font-size: 18px; color: var(--text) }
+.release-body h3:not(:first-child) { margin-top: 28px }
+.release-body ul { margin: 0 0 14px; padding-left: 1.2em }
+.release-body li { margin: 7px 0 }
+.release-body li::marker { color: var(--foam) }
+.release-body p { margin: 0 0 14px }
+.release-body strong { color: var(--text) }
+.release-body code { font: .9em var(--mono); padding: 1px 6px; border-radius: 6px; background: rgba(156, 200, 255, .1); color: var(--text); overflow-wrap: anywhere }
+.release-body a { color: var(--foam) }
+.release-body a:hover { text-decoration: underline }
+.release-note { font-size: 13px; color: var(--dim) }
+.release-links { margin-top: 18px !important; font-size: 13px; color: var(--dim) }
+
 /* footer */
 .site-footer { border-top: 1px solid var(--line); padding: 40px 0 56px }
 .footer-inner { display: grid; grid-template-columns: 1fr 1.3fr auto; align-items: start; gap: 40px }
@@ -250,6 +278,11 @@ h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.2; margin: 0 0 14px; le
   .os-note, .download-button { grid-column: 2 }
   .download-button { justify-self: start }
   .lead br { display: none }
+  .timeline::before { left: 5px }
+  .release { grid-template-columns: 1fr; padding: 0 0 48px 32px }
+  .release::before { left: 0 }
+  .when { position: static; padding: 0 0 14px; text-align: left }
+  .when time, .newest-badge { display: inline-block; margin: 0 0 0 10px }
 }
 @media (max-width: 520px) {
   .wrap { width: calc(100% - 32px) }
