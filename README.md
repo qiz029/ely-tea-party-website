@@ -10,7 +10,9 @@ This repository sits beside a checkout of the app, [ELY-Open-Source/ely-tea-part
 
 ## Search and sharing
 
-The page carries its title, description, keywords, canonical URL, Open Graph and Twitter cards, and JSON-LD (`SoftwareApplication` plus `WebSite`) whose version and download link the build fills from `release.json`; `sitemap.xml` takes the build date. The share card `art/og.jpg` (1200×630) is `scripts/og.html` rendered by headless Chrome:
+`/en/` is generated, not written: the build takes the Chinese `src/index.html`, swaps every phrase listed in `i18n/en.json`, and fails if a listed phrase is missing from the page or any Chinese text is left on `/en/` (the "中文" switch aside). So change the Chinese page, then add or update its English in `i18n/en.json`. Text the script writes (status bubbles, the cast spotlight, platform hints) is localized in `src/app.js` and `src/cast.js`'s `en` blocks. Both pages link each other with `hreflang`, `x-default` is the Chinese page, and `sitemap.xml` lists both.
+
+The page carries its title, description, keywords, canonical URL, Open Graph and Twitter cards, and JSON-LD (`SoftwareApplication` plus `WebSite`) whose version and download link the build fills from `release.json`; `sitemap.xml` takes the build date. The share cards `art/og.jpg` and `art/og-en.jpg` (1200×630) are `scripts/og.html` and `scripts/og.html?en` rendered by headless Chrome:
 
 ```sh
 "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars \

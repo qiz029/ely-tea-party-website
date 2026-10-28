@@ -1,0 +1,410 @@
+[
+ {
+  "zh": "<html lang=\"zh-CN\">",
+  "en": "<html lang=\"en\">"
+ },
+ {
+  "zh": "<title>Ely Tea Party — 给 Claude Code、Codex 的 AI 编程终端｜免费开源</title>",
+  "en": "<title>Ely Tea Party — the AI coding terminal for Claude Code and Codex | Free, open source</title>"
+ },
+ {
+  "zh": "Ely Tea Party 是免费开源的原生终端，把 Claude Code、Codex、Gemini、Kimi 等 coding agent 的会话变成会动的角色：谁在干活、谁在思考、谁在等你回答，一眼看清。支持 macOS、Windows 和 Linux。",
+  "en": "Ely Tea Party is a free, open-source native terminal that turns your Claude Code, Codex, Gemini and Kimi sessions into animated characters, so you see who is working, who is thinking and who is waiting on you at a glance. For macOS, Windows and Linux."
+ },
+ {
+  "zh": "Ely Tea Party,AI 编程终端,coding agent,Claude Code,Codex,Gemini CLI,Kimi Code,OpenCode,dscode,终端,多会话管理,开源终端",
+  "en": "Ely Tea Party,AI coding terminal,coding agent,Claude Code,Codex,Gemini CLI,Kimi Code,OpenCode,dscode,terminal,multiple sessions,open source terminal"
+ },
+ {
+  "zh": "<link rel=\"canonical\" href=\"https://elyteaparty.com/\">",
+  "en": "<link rel=\"canonical\" href=\"https://elyteaparty.com/en/\">"
+ },
+ {
+  "zh": "<meta property=\"og:locale\" content=\"zh_CN\">\n  <meta property=\"og:locale:alternate\" content=\"en_US\">",
+  "en": "<meta property=\"og:locale\" content=\"en_US\">\n  <meta property=\"og:locale:alternate\" content=\"zh_CN\">"
+ },
+ {
+  "zh": "Ely Tea Party — 代码在跑，茶会正好。",
+  "en": "Ely Tea Party — Code is running, tea is ready"
+ },
+ {
+  "zh": "给 Claude Code、Codex、Gemini 们一个有温度的终端：会动的角色告诉你谁在干活、谁在等你。免费开源，支持 macOS、Windows 和 Linux。",
+  "en": "A warm terminal for Claude Code, Codex, Gemini and friends: animated characters show who is working and who is waiting on you. Free and open source for macOS, Windows and Linux."
+ },
+ {
+  "zh": "<meta property=\"og:url\" content=\"https://elyteaparty.com/\">",
+  "en": "<meta property=\"og:url\" content=\"https://elyteaparty.com/en/\">"
+ },
+ {
+  "zh": "https://elyteaparty.com/art/og.jpg",
+  "en": "https://elyteaparty.com/art/og-en.jpg"
+ },
+ {
+  "zh": "Ely Tea Party：代码在跑，茶会正好。鲸鱼娘、Claude 学姐和 GPT 娘坐在一起。",
+  "en": "Ely Tea Party: code is running, tea is ready. The whale girl, Claude and GPT sit together."
+ },
+ {
+  "zh": "给 Claude Code、Codex、Gemini 们一个有温度的终端。免费开源，支持 macOS、Windows 和 Linux。",
+  "en": "A warm terminal for Claude Code, Codex, Gemini and friends. Free and open source for macOS, Windows and Linux."
+ },
+ {
+  "zh": "免费开源的原生终端，把 Claude Code、Codex、Gemini 等 coding agent 的会话变成会动的角色，并提供会话管理、Git、文件和活动信息。",
+  "en": "A free, open-source native terminal that turns Claude Code, Codex, Gemini and other coding agent sessions into animated characters, with session management, Git, files and activity."
+ },
+ {
+  "zh": "\"url\": \"https://elyteaparty.com/\"",
+  "en": "\"url\": \"https://elyteaparty.com/en/\""
+ },
+ {
+  "zh": "\"inLanguage\": \"zh-CN\"",
+  "en": "\"inLanguage\": \"en\""
+ },
+ {
+  "zh": "跳到正文",
+  "en": "Skip to content"
+ },
+ {
+  "zh": "aria-label=\"Ely Tea Party 首页\"",
+  "en": "aria-label=\"Ely Tea Party home\""
+ },
+ {
+  "zh": "<a class=\"brand\" href=\"/\"",
+  "en": "<a class=\"brand\" href=\"/en/\""
+ },
+ {
+  "zh": "aria-label=\"主导航\"",
+  "en": "aria-label=\"Main\""
+ },
+ {
+  "zh": ">认识 Ely</a>",
+  "en": ">Tour</a>"
+ },
+ {
+  "zh": ">茶会成员</a>",
+  "en": ">The cast</a>"
+ },
+ {
+  "zh": "<a class=\"lang\" href=\"/en/\" hreflang=\"en\" lang=\"en\">EN</a>",
+  "en": "<a class=\"lang\" href=\"/\" hreflang=\"zh-CN\" lang=\"zh-CN\">中文</a>"
+ },
+ {
+  "zh": "<a class=\"button tea small\" href=\"#download\">下载</a>",
+  "en": "<a class=\"button tea small\" href=\"#download\">Download</a>"
+ },
+ {
+  "zh": " 免费 · 开源 · macOS / Windows / Linux</p>",
+  "en": " Free · Open source · macOS / Windows / Linux</p>"
+ },
+ {
+  "zh": "代码在跑<span class=\"sr-only\">，</span><br><span class=\"tint\">茶会正好</span>",
+  "en": "Code is running<span class=\"sr-only\">,</span><br><span class=\"tint\">Tea is ready</span>"
+ },
+ {
+  "zh": "给 Claude Code、Codex、Gemini 们一个有温度的终端。<br>谁在干活、谁在思考、谁在等你回答——看一眼就知道。",
+  "en": "A warm, native terminal for Claude Code, Codex, Gemini and friends. <br>Who’s working, who’s thinking, who’s waiting on you: one glance tells."
+ },
+ {
+  "zh": "免费下载 <span aria-hidden=\"true\">↓</span>",
+  "en": "Download free <span aria-hidden=\"true\">↓</span>"
+ },
+ {
+  "zh": "在 GitHub 上看看",
+  "en": "View on GitHub"
+ },
+ {
+  "zh": "macOS · Windows · Linux，免费使用，MIT 开源",
+  "en": "macOS · Windows · Linux · Free to use · MIT licensed"
+ },
+ {
+  "zh": "六位 agent 角色和鲸鱼娘围坐在圆桌旁喝茶，Grok 娘在一旁弹琴，头顶显示各自的状态",
+  "en": "Six agent characters and the whale girl sit around a round tea table while Grok plays guitar beside them, each with her status above her head"
+ },
+ {
+  "zh": "<em>思考中</em>",
+  "en": "<em>Thinking</em>"
+ },
+ {
+  "zh": "<em>工作中</em>",
+  "en": "<em>Working</em>"
+ },
+ {
+  "zh": "<em>等你回答</em>",
+  "en": "<em>Needs you</em>"
+ },
+ {
+  "zh": "<em>照看着</em>",
+  "en": "<em>On watch</em>"
+ },
+ {
+  "zh": "<b>鲸鱼娘</b>",
+  "en": "<b>Whale girl</b>"
+ },
+ {
+  "zh": "aria-label=\"支持的 agent\"",
+  "en": "aria-label=\"Supported agents\""
+ },
+ {
+  "zh": "<span>熟悉的工具</span>",
+  "en": "<span>Works with</span>"
+ },
+ {
+  "zh": "每个会话，<br>都有自己的小表情",
+  "en": "Every session<br>gets a face"
+ },
+ {
+  "zh": "熟悉的命令行依然是主角。角色、状态、Git 和文件，就在它身边。",
+  "en": "The command line stays at the center. Characters, status, Git and files sit right beside it."
+ },
+ {
+  "zh": "不用挨个问「好了吗」",
+  "en": "No more “is it done yet?”"
+ },
+ {
+  "zh": "装好 agent hooks，角色会跟着任务变。比如左栏的 Kimi 兔：头上冒出红色感叹号，「递卷轴等你」——她在等你回答。",
+  "en": "With agent hooks installed, each character follows her task. Take Kimi in the sidebar: a red “!” over her head and a scroll held out. She’s waiting for your answer."
+ },
+ {
+  "zh": "鲸鱼娘趴在窗边",
+  "en": "The whale girl watches from the window"
+ },
+ {
+  "zh": "有人等你时，她也会举起感叹号。点她一下，等你的会话排在最前，一键跳回那个终端。",
+  "en": "When someone needs you, she raises a “!” too. Click her: the sessions waiting on you come first, one click from their terminal."
+ },
+ {
+  "zh": "可爱，也认真工作",
+  "en": "Cute, and serious about work"
+ },
+ {
+  "zh": "Git 改动与提交、文件、活动时间线和 Codex 用量都在右栏。会话能恢复，抽屉终端随手跑一条命令。",
+  "en": "Git changes and commits, files, an activity timeline and Codex usage live in the right column. Sessions resume, and a drawer terminal runs a quick command."
+ },
+ {
+  "zh": "Ely Tea Party 应用截图：左侧角色会话，中间 Codex 终端，右侧 Git、文件和用量面板",
+  "en": "The Ely Tea Party app: character sessions on the left, a Codex terminal in the middle, Git, files and usage on the right"
+ },
+ {
+  "zh": "今天，谁和你一起写代码？",
+  "en": "Who’s coding with you today?"
+ },
+ {
+  "zh": "八位老朋友，各有各的忙法。点一个头像，看看她平时都在干什么。",
+  "en": "Eight old friends, each busy in her own way. Pick one to see what she gets up to."
+ },
+ {
+  "zh": "交给学姐吧～",
+  "en": "Leave it to senpai~"
+ },
+ {
+  "zh": "Claude 学姐：丝带多线程",
+  "en": "Claude Senpai: Ribbon multithreading"
+ },
+ {
+  "zh": "<h3 id=\"cast-name\">Claude 学姐</h3>",
+  "en": "<h3 id=\"cast-name\">Claude Senpai</h3>"
+ },
+ {
+  "zh": "认真，是她的温柔。",
+  "en": "Being earnest is how she’s kind."
+ },
+ {
+  "zh": "aria-label=\"她的动作\"",
+  "en": "aria-label=\"Her poses\""
+ },
+ {
+  "zh": "<small>干活</small><span>丝带多线程</span>",
+  "en": "<small>Working</small><span>Ribbon multithreading</span>"
+ },
+ {
+  "zh": "<small>查资料</small><span>翻魔导书</span>",
+  "en": "<small>Research</small><span>Leafing through a grimoire</span>"
+ },
+ {
+  "zh": "<small>放大招</small><span>终曲·彩带炮</span>",
+  "en": "<small>Big move</small><span>Finale: confetti cannon</span>"
+ },
+ {
+  "zh": "<small>摸鱼</small><span>偷吃蛋糕（摸鱼）</span>",
+  "en": "<small>Slacking</small><span>Sneaking cake (slacking)</span>"
+ },
+ {
+  "zh": "<small>想事情</small><span>品茶沉思</span>",
+  "en": "<small>Thinking</small><span>Pondering over tea</span>"
+ },
+ {
+  "zh": "<small>等你</small><span>等你决定</span>",
+  "en": "<small>Waiting</small><span>Your call</span>"
+ },
+ {
+  "zh": "<small>闲着</small><span>下午茶</span>",
+  "en": "<small>Idle</small><span>Afternoon tea</span>"
+ },
+ {
+  "zh": "<small>睡着</small><span>打盹</span>",
+  "en": "<small>Asleep</small><span>Dozing</span>"
+ },
+ {
+  "zh": ">暂停动画</button>",
+  "en": ">Pause animations</button>"
+ },
+ {
+  "zh": "aria-label=\"选择角色\"",
+  "en": "aria-label=\"Pick a character\""
+ },
+ {
+  "zh": "<span>Claude 学姐</span>",
+  "en": "<span>Claude Senpai</span>"
+ },
+ {
+  "zh": "<span>GPT 娘</span>",
+  "en": "<span>GPT-chan</span>"
+ },
+ {
+  "zh": "<span>鲸鱼娘</span>",
+  "en": "<span>Whale girl</span>"
+ },
+ {
+  "zh": "<span>Grok 娘</span>",
+  "en": "<span>Grok-chan</span>"
+ },
+ {
+  "zh": "<span>Kimi 兔</span>",
+  "en": "<span>Kimi Bunny</span>"
+ },
+ {
+  "zh": "<span>Gemini 星</span>",
+  "en": "<span>Gemini Star</span>"
+ },
+ {
+  "zh": "<span>Pi 酱</span>",
+  "en": "<span>Pi-chan</span>"
+ },
+ {
+  "zh": "<span>OpenCode 娘</span>",
+  "en": "<span>OpenCode-chan</span>"
+ },
+ {
+  "zh": "也可以带上你自己的小伙伴：在「设置 → 角色」导入图片或 .elyskin 形象包，替换任意角色。",
+  "en": "Bring your own friends too: import an image or an .elyskin pack in Settings → Characters to replace anyone. "
+ },
+ {
+  "zh": "形象制作说明 ↗",
+  "en": "How to make a skin ↗"
+ },
+ {
+  "zh": "下一次写代码，一起吧。",
+  "en": "Pull up a chair for your next session."
+ },
+ {
+  "zh": "查看更新记录 ↗",
+  "en": "Release notes ↗"
+ },
+ {
+  "zh": "打开磁盘映像，把 Ely Tea Party 拖进 Applications。已签名并完成 Apple 公证。",
+  "en": "Open the disk image and drag Ely Tea Party into Applications. Signed and notarized by Apple."
+ },
+ {
+  "zh": "解压后运行 ely-tea-party.exe。目前未签名；Windows 版暂不支持自动识别 agent 角色。",
+  "en": "Unzip and run ely-tea-party.exe. Not signed yet, and the Windows build can’t detect agent characters yet."
+ },
+ {
+  "zh": "解压后安装；需要 libxkbcommon、libxkbcommon-x11 和 libxcb。",
+  "en": "Unpack and install; needs libxkbcommon, libxkbcommon-x11 and libxcb. "
+ },
+ {
+  "zh": "安装步骤 ↗",
+  "en": "Install steps ↗"
+ },
+ {
+  "zh": "下载 .dmg",
+  "en": "Download .dmg"
+ },
+ {
+  "zh": "下载 .zip",
+  "en": "Download .zip"
+ },
+ {
+  "zh": "下载 .tar.gz",
+  "en": "Download .tar.gz"
+ },
+ {
+  "zh": "安装包由 GitHub Releases 提供 · 免费使用 · MIT 开源 · ",
+  "en": "Downloads come from GitHub Releases · Free to use · MIT licensed · "
+ },
+ {
+  "zh": "SHA256 校验文件 ↗",
+  "en": "SHA256 checksums ↗"
+ },
+ {
+  "zh": "<b>第一次来？</b>安装并打开 Ely",
+  "en": "<b>First time?</b>Install and open Ely"
+ },
+ {
+  "zh": "启动你熟悉的 coding agent",
+  "en": "Start the coding agent you already use"
+ },
+ {
+  "zh": "在「设置 → 终端 → Agent hooks」安装 hooks，重启 agent",
+  "en": "Install hooks in Settings → Terminal → Agent hooks, then restart the agent"
+ },
+ {
+  "zh": "入座之前",
+  "en": "Before you sit down"
+ },
+ {
+  "zh": "你可能想知道",
+  "en": "Good to know"
+ },
+ {
+  "zh": "这是一个新的 AI 模型吗？",
+  "en": "Is this a new AI model?"
+ },
+ {
+  "zh": "不是。Ely Tea Party 是一个原生终端，你仍然使用自己的 Claude Code、Codex、Gemini 等工具及其账号。Ely 把会话状态变成动画角色，并提供会话管理、Git、文件和活动信息。",
+  "en": "No. Ely Tea Party is a native terminal; you keep using your own Claude Code, Codex, Gemini and other tools with their own accounts. Ely turns each session’s status into an animated character and adds session management, Git, files and activity."
+ },
+ {
+  "zh": "需要填写 API Key 才能使用吗？",
+  "en": "Do I need an API key?"
+ },
+ {
+  "zh": "终端、角色和本地任务卡不需要 Ely 的 API Key。你的 coding agent 按自身方式登录。鲸鱼娘的 AI 解释和建议是可选功能，开启后才需要配置对应的模型服务。",
+  "en": "Not for the terminal, the characters or the local task cards. Your coding agent signs in its own way. The whale girl’s AI explanations and suggestions are optional, and only they need a model provider set up."
+ },
+ {
+  "zh": "可以换成自己的角色吗？",
+  "en": "Can I use my own characters?"
+ },
+ {
+  "zh": "可以。在「设置 → 角色」导入 PNG、APNG、GIF、WebP 或完整的 .elyskin 形象包，也可以给不同动作配置不同动画。你能导出自己的形象包分享给朋友；网站形象市场尚未开放。",
+  "en": "Yes. In Settings → Characters, import PNG, APNG, GIF or WebP images or a full .elyskin pack, with a different animation for each pose. You can export your pack to share with friends; a skin marketplace on this site isn’t open yet."
+ },
+ {
+  "zh": "和 ELYTerminal 是什么关系？",
+  "en": "How does it relate to ELYTerminal?"
+ },
+ {
+  "zh": "Ely Tea Party 是获得作者许可的 ELYTerminal 分支。底层终端和原有设计来自 Zachary Zhang 与 ELYTerminal；这个分支加入了 coding agent 角色、鲸鱼娘和相关工作流。",
+  "en": "Ely Tea Party is a fork of ELYTerminal, made with its author’s permission. The terminal underneath and the original design come from Zachary Zhang and ELYTerminal; this fork adds the coding agent characters, the whale girl and their workflows. "
+ },
+ {
+  "zh": "认识原项目 ↗",
+  "en": "Meet the original ↗"
+ },
+ {
+  "zh": "Ely 家族",
+  "en": "The Ely family"
+ },
+ {
+  "zh": "Ely Tea Party 的原项目，作者的原生终端",
+  "en": "Where Ely Tea Party began: the author’s native terminal"
+ },
+ {
+  "zh": "文档、表格、幻灯片、PDF、邮件、Git 和 Markdown，七款离线桌面应用",
+  "en": "Seven offline desktop apps for documents, sheets, slides, PDF, mail, Git and Markdown"
+ },
+ {
+  "zh": "反馈问题 ↗",
+  "en": "Report an issue ↗"
+ }
+]

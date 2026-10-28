@@ -31,6 +31,20 @@ for (const file of await readdir(path.join(root, 'src'))) {
     return values[key];
   });
   await writeFile(path.join(dist, file), content);
+  if (file === 'index.html') await writeEnglish(content);
+}
+
+// /en/ is the Chinese page with every phrase in i18n/en.json swapped; any phrase left over fails the build.
+async function writeEnglish(page) {
+  const pairs = JSON.parse(await readFile(path.join(root, 'i18n', 'en.json'), 'utf8'));
+  for (const { zh, en } of pairs.sort((a, b) => b.zh.length - a.zh.length)) {
+    if (!page.includes(zh)) throw new Error(`website: en.json phrase not on the page: ${zh}`);
+    page = page.split(zh).join(en);
+  }
+  const left = page.replaceAll('>中文<', '').match(/.{0,40}[　-〿㐀-鿿＀-￯].{0,40}/);
+  if (left) throw new Error(`website: untranslated text on /en/: ${left[0]}`);
+  await mkdir(path.join(dist, 'en'), { recursive: true });
+  await writeFile(path.join(dist, 'en', 'index.html'), page);
 }
 for (const file of await readdir(path.join(repo, 'assets', 'agents'))) {
   if (/-(working(-research|-special|-slack)?|thinking|needs_input|idle|sleeping)\.webp$/.test(file)) {

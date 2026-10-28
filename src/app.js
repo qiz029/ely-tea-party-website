@@ -1,5 +1,11 @@
 import { cast, poses, quipFor } from '/cast.js';
 
+const english = document.documentElement.lang === 'en';
+const say = english
+  ? { play: 'Play animations ▷', pause: 'Pause animations Ⅱ', yours: 'Your platform', download: name => `Download for ${name} `, others: 'Other platforms',
+      states: { working: 'Working', thinking: 'Thinking', needs_input: 'Needs you', sleeping: 'Dozing' } }
+  : { play: '播放动画 ▷', pause: '暂停动画 Ⅱ', yours: '你正在使用的平台', download: name => `下载 ${name} 版 `, others: '其他平台',
+      states: { working: '工作中', thinking: '思考中', needs_input: '等你回答', sleeping: '打个盹' } };
 const images = [...document.querySelectorAll('img.animated')];
 const toggle = document.querySelector('#motion-toggle');
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
@@ -31,7 +37,7 @@ function syncFrame(img) {
 }
 
 function syncMotion() {
-  toggle.textContent = paused ? '播放动画 ▷' : '暂停动画 Ⅱ';
+  toggle.textContent = paused ? say.play : say.pause;
   toggle.setAttribute('aria-pressed', String(paused));
   document.documentElement.classList.toggle('still', paused);
   images.forEach(syncFrame);
@@ -115,7 +121,7 @@ function showArt(name) {
 }
 
 function showCast() {
-  const who = cast[castAgent];
+  const who = english ? { ...cast[castAgent], ...cast[castAgent].en } : cast[castAgent];
   castView.style.setProperty('--tint', who.color);
   document.querySelector('#cast-index').textContent = String(Object.keys(cast).indexOf(castAgent) + 1).padStart(2, '0');
   document.querySelector('#cast-name').textContent = who.name;
@@ -190,7 +196,7 @@ for (let i = 0; i < 22; i++) {
   bubbles.append(bubble);
 }
 
-const states = { working: '工作中', thinking: '思考中', needs_input: '等你回答', sleeping: '打个盹' };
+const states = say.states;
 const weights = ['working', 'working', 'working', 'thinking', 'thinking', 'needs_input', 'sleeping'];
 const seats = [...document.querySelectorAll('.seat[data-agent]')];
 let heroVisible = true;
@@ -245,13 +251,13 @@ if (current && navigator.maxTouchPoints < 2) {
   card.classList.add('recommended');
   const hint = document.createElement('span');
   hint.className = 'platform-hint';
-  hint.textContent = '你正在使用的平台';
+  hint.textContent = say.yours;
   const name = card.querySelector('h3').textContent;
   card.querySelector('h3').append(hint);
   const heroDownload = document.querySelector('#hero-download');
   heroDownload.href = card.querySelector('.download-button').href;
-  heroDownload.firstChild.textContent = `下载 ${name} 版 `;
-  document.querySelector('#hero-meta').innerHTML = `${card.querySelector('.os-spec').textContent} · <a class="text-link" href="#download">其他平台</a>`;
+  heroDownload.firstChild.textContent = say.download(name);
+  document.querySelector('#hero-meta').innerHTML = `${card.querySelector('.os-spec').textContent} · <a class="text-link" href="#download">${say.others}</a>`;
 }
 
 const canvas = document.querySelector('#ocean');

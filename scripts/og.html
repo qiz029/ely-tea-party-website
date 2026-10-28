@@ -37,5 +37,15 @@
     <img class="whale" src="../art/mascot/whale-idle.avif" alt="">
     <img class="gpt" src="../art/cast/gpt-needs_input.avif" alt="">
   </div>
+  <script>
+    if (location.search === '?en') {
+      document.documentElement.lang = 'en';
+      const h1 = document.querySelector('h1');
+      h1.innerHTML = 'Code is running<br><span>Tea is ready</span>';
+      h1.style.fontSize = '76px';
+      document.querySelector('.copy p').innerHTML = 'A warm terminal for Claude Code,<br>Codex, Gemini and friends.';
+      document.querySelector('.meta').textContent = 'Free · Open source · macOS / Windows / Linux';
+    }
+  </script>
 </body>
 </html>
