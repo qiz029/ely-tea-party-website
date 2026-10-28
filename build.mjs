@@ -46,7 +46,9 @@ for (const [lang, page] of Object.entries(pages)) {
     footer: pick('footer'),
   };
   await mkdir(path.join(dist, home, 'releases'), { recursive: true });
-  await writeFile(path.join(dist, home, 'releases', 'index.html'), renderChangelog(lang, releases, chrome));
+  const translations = path.join(root, 'data', `releases.${lang}.json`);
+  const translated = existsSync(translations) ? JSON.parse(await readFile(translations, 'utf8')) : {};
+  await writeFile(path.join(dist, home, 'releases', 'index.html'), renderChangelog(lang, releases, chrome, translated));
 }
 
 // /en/ is the Chinese page with every phrase in i18n/en.json swapped; any phrase left over fails the build.

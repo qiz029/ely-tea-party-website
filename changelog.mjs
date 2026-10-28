@@ -1,4 +1,4 @@
-// The changelog pages, /releases/ and /en/releases/, from data/releases.json.
+// The changelog pages, /releases/ and /en/releases/, from data/releases.json; data/releases.<lang>.json translates notes a release lacks in that language.
 
 const cjk = /[㐀-鿿]/g;
 const skipped = /^(builds|构建|安装包)$/i;
@@ -70,7 +70,7 @@ function language(section) {
   return (text.match(cjk)?.length ?? 0) * 2 > (text.match(/[A-Za-z]/g)?.length ?? 0) ? 'zh' : 'en';
 }
 
-function renderRelease(release, lang, latest) {
+function renderRelease(release, lang, latest, translated) {
   const say = words[lang];
   const links = [];
   const all = sections(release.body).filter(section => !skipped.test(section.heading ?? ''));
@@ -84,14 +84,18 @@ function renderRelease(release, lang, latest) {
   }
   const filled = all.filter(section => section.blocks.length || section.heading);
   const mine = filled.filter(section => language(section) === lang);
-  const shown = mine.length ? mine : filled;
+  const translation = !mine.length && translated[release.tag];
+  if (!mine.length && !translation && filled.length) {
+    console.warn(`${process.env.GITHUB_ACTIONS ? '::warning::' : ''}changelog: ${release.tag} has no ${lang} notes; add them to data/releases.${lang}.json`);
+  }
+  const shown = mine.length ? mine : translation ? sections(translation) : filled;
   const html = shown.map(section => [
     section.heading ? `<h3>${inline(section.heading)}</h3>` : '',
     ...section.blocks.map(block => block.items
       ? `<ul>${block.items.map(item => `<li>${inline(item)}</li>`).join('')}</ul>`
       : `<p>${inline(block.lines.join(' '))}</p>`),
   ].join('')).join('\n');
-  const note = !shown.length ? `<p class="release-note">${say.none}</p>` : mine.length ? '' : `<p class="release-note">${say.onlyOther}</p>`;
+  const note = !shown.length ? `<p class="release-note">${say.none}</p>` : mine.length || translation ? '' : `<p class="release-note">${say.onlyOther}</p>`;
   const id = release.tag;
   return `<li class="release${latest ? ' newest' : ''}" id="${id}">
   <div class="when"><h2><a href="#${id}">${id}</a></h2><time datetime="${release.date.slice(0, 10)}">${say.date(release.date)}</time>${latest ? `<span class="newest-badge">${say.latest}</span>` : ''}</div>
@@ -100,7 +104,7 @@ function renderRelease(release, lang, latest) {
 }
 
 // `chrome` is the landing page's header and footer for this language, its in-page links already pointed home.
-export function renderChangelog(lang, releases, chrome) {
+export function renderChangelog(lang, releases, chrome, translated = {}) {
   const say = words[lang];
   const self = lang === 'en' ? 'https://elyteaparty.com/en/releases/' : 'https://elyteaparty.com/releases/';
   return `<!doctype html>
@@ -133,7 +137,7 @@ export function renderChangelog(lang, releases, chrome) {
     <h1>${say.heading}</h1>
     <p class="sub">${say.lead(releases.length)}</p>
     <ol class="timeline">
-${releases.map((release, i) => renderRelease(release, lang, i === 0)).join('\n')}
+${releases.map((release, i) => renderRelease(release, lang, i === 0, translated)).join('\n')}
     </ol>
   </main>
   ${chrome.footer}
