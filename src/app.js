@@ -139,8 +139,8 @@ if (current && navigator.maxTouchPoints < 2) {
   const hint = document.createElement('span');
   hint.className = 'platform-hint';
   hint.textContent = '你正在使用的平台';
-  card.querySelector('h3').append(hint);
   const name = card.querySelector('h3').textContent;
+  card.querySelector('h3').append(hint);
   const heroDownload = document.querySelector('#hero-download');
   heroDownload.href = card.querySelector('.download-button').href;
   heroDownload.firstChild.textContent = `下载 ${name} 版 `;
