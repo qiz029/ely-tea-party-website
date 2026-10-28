@@ -67,8 +67,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .pill b { color: var(--foam); font-weight: 600 }
 h1 { font-size: clamp(44px, 6.2vw, 78px); line-height: 1.12; letter-spacing: -1px; margin: 22px 0 18px; font-weight: 800; text-wrap: balance }
 h1 .tint { background: linear-gradient(90deg, #a6dcff, var(--whale) 55%, #b09bff); -webkit-background-clip: text; background-clip: text; color: transparent }
-/* A full-width stop inks only its left half; hang the empty half so centered lines look centered. */
-.hang { margin-right: -.5em }
 .lead { font-size: clamp(16px, 1.6vw, 20px); color: var(--soft); max-width: 640px; margin: 0 auto 32px }
 .cta { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap }
 .hero-meta { margin: 16px 0 0; font-size: 13px; color: var(--dim) }
