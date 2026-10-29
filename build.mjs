@@ -23,6 +23,20 @@ async function stored() {
     return null;
   }
 }
+// scripts/downloads.mjs counts every installer download, GitHub's and the store's, into stats.json; without it the count is left off.
+async function downloads() {
+  try {
+    const response = await fetch('https://download.elyteaparty.com/stats.json', { signal: AbortSignal.timeout(8000) });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const { total } = await response.json();
+    if (!Number.isSafeInteger(total) || total < 0) throw new Error(`a count of ${total}`);
+    return total.toLocaleString('en-US');
+  } catch (error) {
+    console.log(`website: the download count answered ${error.message}, so the page leaves it off`);
+    return '';
+  }
+}
+const uncounted = page => values.DOWNLOADS ? page : page.replace(/ <span class="downloads">.*?<\/span>/, '');
 const release = JSON.parse(await readFile(path.join(root, 'release.json'), 'utf8'));
 const values = (await stored()) ?? { VERSION: release.version, RELEASE_URL: release.page, CHECKSUM_URL: `${release.base}/SHA256SUMS` };
 for (const platform of ['mac', 'windows', 'linux']) {
@@ -31,6 +45,7 @@ for (const platform of ['mac', 'windows', 'linux']) {
 }
 if (!/^\d+\.\d+\.\d+$/.test(values.VERSION)) throw new Error('website: invalid release version');
 values.BUILT = new Date().toISOString().slice(0, 10);
+values.DOWNLOADS = await downloads();
 for (const [key, value] of Object.entries(values)) {
   if (key.endsWith('_URL') && (!value.startsWith('https://') || /["<>]/.test(value))) {
     throw new Error(`website: invalid URL in ${key}`);
@@ -46,7 +61,7 @@ for (const file of await readdir(path.join(root, 'src'))) {
     if (!(key in values)) throw new Error(`website: missing template value ${key}`);
     return values[key];
   });
-  await writeFile(path.join(dist, file), content);
+  await writeFile(path.join(dist, file), uncounted(content));
   if (file === 'index.html') pages = { zh: content, en: await writeEnglish(content) };
 }
 
@@ -75,7 +90,7 @@ async function writeEnglish(page) {
   const left = page.replaceAll('>中文<', '').match(/.{0,40}[　-〿㐀-鿿＀-￯].{0,40}/);
   if (left) throw new Error(`website: untranslated text on /en/: ${left[0]}`);
   await mkdir(path.join(dist, 'en'), { recursive: true });
-  await writeFile(path.join(dist, 'en', 'index.html'), page);
+  await writeFile(path.join(dist, 'en', 'index.html'), uncounted(page));
   return page;
 }
 for (const file of await readdir(path.join(repo, 'assets', 'agents'))) {
@@ -90,4 +105,4 @@ await cp(path.join(root, 'art'), path.join(dist, 'art'), { recursive: true });
 await cp(path.join(repo, 'docs/screenshot.png'), path.join(dist, 'assets/screenshot.png'));
 await cp(path.join(repo, 'docs/icon.png'), path.join(dist, 'assets/icon.png'));
 await cp(path.join(repo, 'LICENSE'), path.join(dist, 'LICENSE.txt'));
-console.log(`website: built Ely Tea Party ${release.version} into ${dist}`);
+console.log(`website: built Ely Tea Party ${values.VERSION} into ${dist}`);

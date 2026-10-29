@@ -328,8 +328,8 @@
   "en": "Download .tar.gz"
  },
  {
-  "zh": "安装包由 GitHub Releases 提供 · 免费使用 · MIT 开源 · ",
-  "en": "Downloads come from GitHub Releases · Free to use · MIT licensed · "
+  "zh": "安装包由 Cloudflare 提供，与 GitHub Releases 一致 · 免费使用 · MIT 开源 · ",
+  "en": "Downloads served by Cloudflare, identical to GitHub Releases · Free to use · MIT licensed · "
  },
  {
   "zh": "SHA256 校验文件 ↗",
@@ -410,5 +410,9 @@
  {
   "zh": "<a class=\"text-link\" href=\"/releases/\">查看更新日志</a>",
   "en": "<a class=\"text-link\" href=\"/en/releases/\">See the changelog</a>"
+ },
+ {
+  "zh": "</b> 次下载</span>",
+  "en": "</b> downloads</span>"
  }
 ]

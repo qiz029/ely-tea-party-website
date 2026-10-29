@@ -1,35 +1,19 @@
 // Copies the newest published GitHub release to R2, checked against its SHA256SUMS, then points latest.json at it.
-import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { createWriteStream } from 'node:fs';
-import { appendFile, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
-import { fileURLToPath } from 'node:url';
+import { BUCKET, ORIGIN, github, put, say, stored, wrangler } from './store.mjs';
 
-const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
-const BUCKET = 'ely-tea-party-downloads';
-const ORIGIN = 'https://download.elyteaparty.com';
 const KEEP = 10;
 const FILES = {
   mac: [version => `ely-tea-party-${version}.dmg`, 'application/x-apple-diskimage'],
   windows: [version => `ely-tea-party-${version}-windows-x86_64.zip`, 'application/zip'],
   linux: [version => `ely-tea-party-${version}-linux-x86_64.tar.gz`, 'application/gzip'],
 };
-
-const wrangler = (...args) => execFileSync('npx', ['--yes', 'wrangler@4.154.0', 'r2', 'object', ...args, '--remote'], { cwd: root, stdio: ['ignore', 'pipe', args[0] === 'get' ? 'ignore' : 'inherit'] });
-const put = (key, file, type, cache) => wrangler('put', `${BUCKET}/${key}`, '--file', file, '--content-type', type, '--cache-control', cache);
-const say = async (key, value) => process.env.GITHUB_OUTPUT && appendFile(process.env.GITHUB_OUTPUT, `${key}=${value}\n`);
-
-async function github(url) {
-  const headers = { accept: 'application/vnd.github+json', 'user-agent': 'ely-tea-party-website' };
-  if (process.env.GITHUB_TOKEN) headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
-  const response = await fetch(url, { headers });
-  if (!response.ok) throw new Error(`mirror: GitHub answered ${response.status} for ${url}`);
-  return response.json();
-}
 
 async function download(url, file) {
   const response = await fetch(url, { redirect: 'follow' });
@@ -45,22 +29,12 @@ async function download(url, file) {
   return hash.digest('hex');
 }
 
-async function current(work) {
-  const file = path.join(work, 'latest.json');
-  try {
-    wrangler('get', `${BUCKET}/latest.json`, '--file', file);
-    return JSON.parse(await readFile(file, 'utf8'));
-  } catch {
-    return null;
-  }
-}
-
 const release = await github('https://api.github.com/repos/ELY-Open-Source/ely-tea-party/releases/latest');
 const version = release.tag_name.replace(/^v/, '');
 if (!/^\d+\.\d+\.\d+$/.test(version)) throw new Error(`mirror: tag ${release.tag_name} names no version`);
 const work = await mkdtemp(path.join(tmpdir(), 'ely-mirror-'));
 try {
-  const before = await current(work);
+  const before = await stored('latest.json', path.join(work, 'latest.json'));
   if (before?.version === version && !process.argv.includes('--force')) {
     console.log(`mirror: ${version} is already on R2`);
     await say('published', 'false');

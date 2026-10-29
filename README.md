@@ -33,6 +33,8 @@ Installers and the app's update manifest live in the R2 bucket `ely-tea-party-do
 
 The build takes its download links and version from `latest.json`; when the store can't be read it falls back to `release.json`, GitHub's links for the last release recorded there.
 
+The download section shows how many times the installers were downloaded: GitHub's count for every release plus the store's. `scripts/downloads.mjs`, run by the same hourly workflow, writes it to the store's `stats.json` and triggers the deploy when it changed. The store's part comes from R2's analytics, whole `GetObject` 200s on installer files, which reach back only 31 days, so `stats.json` keeps a running total and the hour it was counted `through`. That query needs the `CLOUDFLARE_API_TOKEN` to have **Account Analytics: Read**; without it the store's count stays where it was and the run warns. When `stats.json` can't be read the page leaves the count off.
+
 ## Deployment
 
 Every push to `main` deploys: `.github/workflows/deploy.yml` checks out the app beside this repository, builds, and runs `wrangler deploy` with the `CLOUDFLARE_API_TOKEN` repository secret (a token from Cloudflare's "Edit Cloudflare Workers" template). Without the secret the workflow only builds. `npm run deploy` does the same from a local checkout with Wrangler's OAuth login. Either way the site goes to the owner's Cloudflare account, with custom domains `elyteaparty.com` and `www.elyteaparty.com`; never place credentials in this repository. The Worker serves static assets only. Check both public hosts, the 404 status, character state buttons, pause/play, narrow screens and release links after deployment.

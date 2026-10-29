@@ -309,3 +309,5 @@ h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.2; margin: 0 0 14px; le
   .bubble, [data-state="needs_input"] .state, .seat.changed .state, .steam path, .pin::after, .quip.say, .hero > * { animation: none }
   .steam path { opacity: .35 }
 }
+.downloads { color: var(--soft); margin-right: 8px; white-space: nowrap }
+.downloads b { color: var(--text); font: 600 1em var(--mono) }
