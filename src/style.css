@@ -57,8 +57,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 /* hero */
 .sea { position: relative; overflow: hidden; isolation: isolate;
   background: radial-gradient(60% 50% at 50% 0%, rgba(90, 150, 255, .28), transparent 70%), linear-gradient(180deg, #1b3e8d 0%, var(--deep) 50%, var(--abyss) 100%) }
-#ocean { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 1.2s ease }
+#ocean { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; opacity: 0 }
 .gpu #ocean { opacity: 1 }
+.gpu body, .gpu .sea { background: none }
 .bubbles { position: absolute; inset: 0; z-index: -1; pointer-events: none }
 .bubble { position: absolute; bottom: -30px; border-radius: 50%; border: 1.5px solid rgba(156, 200, 255, .32);
   background: radial-gradient(circle at 32% 30%, rgba(255, 255, 255, .4), transparent 45%); animation: rise linear infinite }
@@ -119,25 +120,35 @@ h1 .tint { background: linear-gradient(90deg, #a6dcff, var(--whale) 55%, #b09bff
 h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.2; margin: 0 0 14px; letter-spacing: -.5px; font-weight: 800; text-wrap: balance }
 .sub { color: var(--soft); font-size: 18px; max-width: 580px; margin: 0 }
 
-/* product tour */
-.tour-grid { display: grid; grid-template-columns: minmax(300px, 380px) 1fr; gap: 64px; align-items: center }
-.tour h2 { font-size: clamp(30px, 3.4vw, 42px) }
-.notes { list-style: none; padding: 0; margin: 40px 0 0; display: grid; gap: 26px }
-.notes li { display: grid; grid-template-columns: 28px 1fr; gap: 16px }
-.notes h3 { margin: 0 0 4px; font-size: 18px }
-.notes p { margin: 0; color: var(--soft); font-size: 15px }
-.pin-no, .pin { width: 28px; height: 28px; border-radius: 50%; background: var(--tea); color: var(--tea-ink); font: 700 14px/28px var(--sans); text-align: center }
-.tour-shot { position: relative; margin: 0 }
-.tour-shot picture { display: block }
-.tour-shot img, .tour-shot .pin { transition: opacity .4s }
-.tour-shot.waiting img, .tour-shot.waiting .pin { opacity: 0 }
-.tour-shot::before { content: ""; position: absolute; inset: 14% 8% 4%; z-index: -1; background: radial-gradient(closest-side, rgba(79, 134, 255, .4), transparent); filter: blur(40px) }
-.pin { position: absolute; left: var(--px); top: var(--py); translate: -50% -50%; box-shadow: 0 0 0 5px rgba(255, 207, 122, .2), 0 6px 16px rgba(0, 0, 0, .4); transition: scale .2s }
-.pin::after { content: ""; position: absolute; inset: -5px; border-radius: 50%; border: 2px solid var(--tea); animation: ping 2.4s ease-out infinite }
-@keyframes ping { 0% { opacity: .8; scale: 1 } 100% { opacity: 0; scale: 1.9 } }
-.tour:has(.notes li:nth-child(1):hover) .pin:nth-of-type(1), .tour:has(.notes li:nth-child(2):hover) .pin:nth-of-type(2), .tour:has(.notes li:nth-child(3):hover) .pin:nth-of-type(3) { scale: 1.3 }
-
-/* characters */
+/* product tour: the frame stays put and moves its camera to each step's part of the screenshot */
+.tour-head { margin-bottom: 24px }
+.story { display: grid; grid-template-columns: minmax(280px, 360px) 1fr; gap: 64px }
+.steps { list-style: none; margin: 0; padding: 0 }
+.step { min-height: 78vh; display: flex; flex-direction: column; justify-content: center; transition: opacity .4s }
+.steps.live .step:not(.current) { opacity: .28 }
+.step-no { font: 600 13px var(--mono); color: var(--tea); letter-spacing: .1em }
+.step h3 { font-size: clamp(24px, 2.4vw, 30px); line-height: 1.3; margin: 10px 0 14px }
+.step p { margin: 0; color: var(--soft) }
+.step code, .versus code { font: 14px var(--mono); color: var(--foam) }
+kbd { display: inline-block; min-width: 1.6em; padding: 0 5px; margin: 0 1px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 6px; background: rgba(156, 200, 255, .06); color: var(--text); font: 13px/1.6 var(--sans); text-align: center }
+.tour-stage { position: sticky; top: 0; height: 100vh; height: 100svh; display: grid; align-items: center }
+.tour-shot { position: relative; margin: 0; overflow: hidden; border-radius: 16px; aspect-ratio: 2400 / 1691; box-shadow: 0 30px 80px rgba(0, 0, 0, .45), 0 0 0 1px var(--line) }
+.tour-shot picture { display: block; height: 100% }
+.tour-shot img { display: block; width: 100%; height: 100%; transform-origin: 0 0; transform: translate(calc(var(--tx, 0) * 100%), calc(var(--ty, 0) * 100%)) scale(var(--s, 1)); transition: opacity .4s, transform 1.1s cubic-bezier(.65, 0, .25, 1) }
+.tour-shot.waiting img { opacity: 0 }
+.tour-shot[data-step="1"] { --s: 2; --ty: -.26 }
+.tour-shot[data-step="2"] { --s: 1.8 }
+.tour-shot[data-step="3"] { --s: 1.75; --tx: -.41 }
+.tour-shot[data-step="4"] { --s: 2.2; --tx: -1.2; --ty: -.36 }
+.tour-shot[data-step="5"] { --s: 4; --tx: -3; --ty: -3 }
+.versus { width: 100%; max-width: 940px; margin: 0 auto; border-collapse: collapse; font-size: 16px }
+.versus th, .versus td { padding: 18px 16px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top }
+.versus thead th { color: var(--dim); font-size: 14px; font-weight: 600 }
+.versus thead th:last-child { color: var(--tea) }
+.versus tbody th { width: 22%; font-weight: 600 }
+.versus td:nth-child(2) { width: 30%; color: var(--dim) }
+.versus td:last-child { color: var(--text) }
+.versus-note { max-width: 940px; margin: 20px auto 0; color: var(--dim); font-size: 14px }
 .party { background: radial-gradient(60% 30% at 50% 30%, rgba(79, 134, 255, .1), transparent) }
 .cast { display: grid; grid-template-columns: 1fr 1.1fr; gap: 48px; align-items: center }
 .spot { position: relative; display: grid; place-items: center; min-height: 400px }
@@ -193,6 +204,7 @@ h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.2; margin: 0 0 14px; le
 .first-time { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin: 40px 0 0; font-size: 15px; color: var(--soft) }
 .first-time b { color: var(--text) }
 .first-time span { color: var(--dim) }
+.first-time small { flex-basis: 100%; color: var(--dim); font-size: 14px }
 
 /* faq */
 .faq { padding-top: 40px }
@@ -261,12 +273,13 @@ h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.2; margin: 0 0 14px; le
 .hero > .hero-meta { animation-delay: .3s }
 .hero > .stage { animation-duration: 1.1s; animation-delay: .32s }
 .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms), transform .8s cubic-bezier(.2, .7, .2, 1) var(--d, 0ms) }
-.tour-shot.reveal { transform: translateY(44px) scale(.97) }
 .spot.reveal { transform: scale(.9) }
 .reveal.in { opacity: 1; transform: none }
 
 @media (max-width: 1080px) {
-  .tour-grid { grid-template-columns: 1fr; gap: 40px }
+  .story { grid-template-columns: 1fr; gap: 0 }
+  .tour-stage { grid-row: 1; top: 60px; z-index: 1; height: auto; padding: 12px 0; background: linear-gradient(var(--abyss) 80%, transparent) }
+  .step { min-height: 58vh; justify-content: flex-start; padding-top: 12vh }
   .cast { grid-template-columns: 1fr; gap: 8px }
 }
 @media (max-width: 860px) {
@@ -288,7 +301,6 @@ h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.2; margin: 0 0 14px; le
   .wrap { width: calc(100% - 32px) }
   .hero { padding-top: 104px }
   .spot { min-height: 320px }
-  .pin { width: 20px; height: 20px; font-size: 11px; line-height: 20px; box-shadow: 0 0 0 3px rgba(255, 207, 122, .2) }
   .spot img, .spot canvas { width: 192px; height: 192px }
   .quip { left: 50%; top: 10px; font-size: 14px }
   .poses button { padding: 9px 10px; font-size: 14px; flex-direction: column; gap: 0 }
@@ -301,13 +313,40 @@ h2 { font-size: clamp(32px, 4.2vw, 50px); line-height: 1.2; margin: 0 0 14px; le
   .pill { padding: 5px 12px; gap: 8px; font-size: 12px }
 }
 .still .bubble { animation-play-state: paused }
-.still .pin::after { animation: none; opacity: 0 }
 .still [data-state="needs_input"] .state, .still .steam path { animation: none }
 .still .steam path { opacity: .35 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto }
-  .bubble, [data-state="needs_input"] .state, .seat.changed .state, .steam path, .pin::after, .quip.say, .hero > * { animation: none }
+  .bubble, [data-state="needs_input"] .state, .seat.changed .state, .steam path, .quip.say, .hero > * { animation: none }
+  .tour-shot img { transition: opacity .4s }
   .steam path { opacity: .35 }
 }
 .downloads { color: var(--soft); margin-right: 8px; white-space: nowrap }
 .downloads b { color: var(--text); font: 600 1em var(--mono) }
+
+/* With WebGPU the plankton draws the screenshot first, and the picture itself takes over once it has gathered. */
+.gpu:not(.still) .tour-shot:not(.waiting, [data-shown]) img { opacity: clamp(0, (var(--formed, 1) - .7) * 4, 1) }
+
+/* In-page guide: one glass bar of numbered sections, with a lighter chip sliding to the one on screen. */
+.guide { position: fixed; left: 20px; top: 50%; translate: 0 -50%; z-index: 9; display: flex; flex-direction: column; padding: 5px; border-radius: 18px;
+  background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .11);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .16), 0 10px 30px rgba(0, 0, 0, .28);
+  backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%) }
+.guide a { position: relative; display: flex; align-items: baseline; gap: 10px; padding: 8px 16px 8px 12px; border-radius: 13px;
+  color: rgba(238, 243, 255, .5); font-size: 13px; font-weight: 500; line-height: 1.2; letter-spacing: .04em; white-space: nowrap; transition: color .25s }
+.guide a:hover { color: rgba(238, 243, 255, .85) }
+.guide a[aria-current="true"] { color: var(--text) }
+.guide small { font: 500 10px var(--mono); letter-spacing: .06em; color: rgba(238, 243, 255, .32); transition: color .25s }
+.guide a[aria-current="true"] small { color: var(--tea) }
+.guide-mark { position: absolute; left: 0; top: 0; border-radius: 13px; background: rgba(255, 255, 255, .1); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 0 0 1px rgba(255, 255, 255, .05);
+  opacity: 0; transition: translate .45s cubic-bezier(.3, 1.2, .4, 1), width .45s, height .45s, opacity .25s; pointer-events: none }
+.guide-mark.on { opacity: 1 }
+@media (max-width: 1320px) {
+  .guide { left: 50%; top: auto; bottom: 14px; translate: -50% 0; flex-direction: row; border-radius: 999px }
+  .guide a { padding: 8px 14px; border-radius: 999px }
+  .guide small { display: none }
+  .guide-mark { border-radius: 999px }
+}
+@media (max-width: 420px) {
+  .guide a { padding: 8px 10px; font-size: 12px; letter-spacing: 0 }
+}

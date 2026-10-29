@@ -76,14 +76,6 @@
   "en": "aria-label=\"Main\""
  },
  {
-  "zh": ">认识 Ely</a>",
-  "en": ">Tour</a>"
- },
- {
-  "zh": ">茶会成员</a>",
-  "en": ">The cast</a>"
- },
- {
   "zh": "<a href=\"/releases/\">更新日志</a>",
   "en": "<a href=\"/en/releases/\">Changelog</a>"
  },
@@ -152,48 +144,12 @@
   "en": "<span>Works with</span>"
  },
  {
-  "zh": "每个会话，<br>都有自己的小表情",
-  "en": "Every session<br>gets a face"
- },
- {
-  "zh": "熟悉的命令行依然是主角。角色、状态、Git 和文件，就在它身边。",
-  "en": "The command line stays at the center. Characters, status, Git and files sit right beside it."
- },
- {
-  "zh": "不用挨个问「好了吗」",
-  "en": "No more “is it done yet?”"
- },
- {
-  "zh": "装好 agent hooks，角色会跟着任务变。比如左栏的 Kimi 兔：头上冒出红色感叹号，「递卷轴等你」——她在等你回答。",
-  "en": "With agent hooks installed, each character follows her task. Take Kimi in the sidebar: a red “!” over her head and a scroll held out. She’s waiting for your answer."
- },
- {
-  "zh": "鲸鱼娘趴在窗边",
-  "en": "The whale girl watches from the window"
- },
- {
-  "zh": "有人等你时，她也会举起感叹号。点她一下，等你的会话排在最前，一键跳回那个终端。",
-  "en": "When someone needs you, she raises a “!” too. Click her: the sessions waiting on you come first, one click from their terminal."
- },
- {
-  "zh": "可爱，也认真工作",
-  "en": "Cute, and serious about work"
- },
- {
-  "zh": "Git 改动与提交、文件、活动时间线和 Codex 用量都在右栏。会话能恢复，抽屉终端随手跑一条命令。",
-  "en": "Git changes and commits, files, an activity timeline and Codex usage live in the right column. Sessions resume, and a drawer terminal runs a quick command."
- },
- {
   "zh": "Ely Tea Party 应用截图：左侧角色会话，中间 Codex 终端，右侧 Git、文件和用量面板",
   "en": "The Ely Tea Party app: character sessions on the left, a Codex terminal in the middle, Git, files and usage on the right"
  },
  {
   "zh": "今天，谁和你一起写代码？",
   "en": "Who’s coding with you today?"
- },
- {
-  "zh": "八位老朋友，各有各的忙法。点一个头像，看看她平时都在干什么。",
-  "en": "Eight old friends, each busy in her own way. Pick one to see what she gets up to."
  },
  {
   "zh": "交给学姐吧～",
@@ -344,10 +300,6 @@
   "en": "Start the coding agent you already use"
  },
  {
-  "zh": "在「设置 → 终端 → Agent hooks」安装 hooks，重启 agent",
-  "en": "Install hooks in Settings → Terminal → Agent hooks, then restart the agent"
- },
- {
   "zh": "入座之前",
   "en": "Before you sit down"
  },
@@ -366,10 +318,6 @@
  {
   "zh": "需要填写 API Key 才能使用吗？",
   "en": "Do I need an API key?"
- },
- {
-  "zh": "终端、角色和本地任务卡不需要 Ely 的 API Key。你的 coding agent 按自身方式登录。鲸鱼娘的 AI 解释和建议是可选功能，开启后才需要配置对应的模型服务。",
-  "en": "Not for the terminal, the characters or the local task cards. Your coding agent signs in its own way. The whale girl’s AI explanations and suggestions are optional, and only they need a model provider set up."
  },
  {
   "zh": "可以换成自己的角色吗？",
@@ -396,10 +344,6 @@
   "en": "The Ely family"
  },
  {
-  "zh": "Ely Tea Party 的原项目，作者的原生终端",
-  "en": "Where Ely Tea Party began: the author’s native terminal"
- },
- {
   "zh": "文档、表格、幻灯片、PDF、邮件、Git 和 Markdown，七款离线桌面应用",
   "en": "Seven offline desktop apps for documents, sheets, slides, PDF, mail, Git and Markdown"
  },
@@ -414,5 +358,153 @@
  {
   "zh": "</b> 次下载</span>",
   "en": "</b> downloads</span>"
+ },
+ {
+  "zh": "打开它，<br>你会看到这些",
+  "en": "Open it,<br>and this is what you see"
+ },
+ {
+  "zh": "<h3>一个窗口，一桌 agent</h3><p>左边是会话，中间是终端，右边是 Git、文件和用量。Claude Code、Codex、Gemini 们照常在里面跑，用的还是你自己的账号。</p>",
+  "en": "<h3>One window, a table of agents</h3><p>Sessions on the left, the terminal in the middle, Git, files and usage on the right. Claude Code, Codex, Gemini and friends run in it as usual, on your own accounts.</p>"
+ },
+ {
+  "zh": "<h3>谁在干活，看一眼就知道</h3><p>每个会话的 agent 是一个会动的角色，那一行写着她手上的事：",
+  "en": "<h3>See who's working at a glance</h3><p>Each session's agent is an animated character, and her row names "
+ },
+ {
+  "zh": "<code>改 src/pet/whale.rs</code>、<code>跑 cargo test</code>、<code>读 docs/architecture.md</code>。不用挨个切进去问「好了吗」。</p>",
+  "en": "the file she's editing (<code>src/pet/whale.rs</code>), the command she's running (<code>cargo test</code>), the doc she's reading (<code>docs/architecture.md</code>). No more checking each tab to ask whether it's done.</p>"
+ },
+ {
+  "zh": "<h3>等你的时候，她们会举手</h3><p>Kimi 兔头上冒出红色感叹号：她在等你回答，窗口上方的鲸鱼娘也跟着举手。",
+  "en": "<h3>When they need you, they raise a hand</h3><p>Kimi Bunny has a red exclamation mark over her head: she's waiting for your answer. The whale girl above the window raises her hand too. "
+ },
+ {
+  "zh": " 直接跳到等你的会话；窗口在后台时，还会发系统通知。</p>",
+  "en": " jumps straight to the session that's waiting, and with the window in the background you get a system notification.</p>"
+ },
+ {
+  "zh": "<h3>底下是一个真正的终端</h3><p>真彩色、kitty 键盘协议、输入法、链接和提示符跳转都在。",
+  "en": "<h3>A real terminal underneath</h3><p>Truecolor, the kitty keyboard protocol, input methods, links and prompt jumps are all there. "
+ },
+ {
+  "zh": "<h3>Git、文件和活动，就在旁边</h3><p>暂存、提交、看 diff；文件树带着 Git 标记；活动时间线列出 agent 的每次提问、每个工具和用了多久。</p>",
+  "en": "<h3>Git, files and activity beside it</h3><p>Stage, commit and open diffs; the file tree carries Git's marks; the activity timeline lists each prompt, each tool the agent used and how long it took.</p>"
+ },
+ {
+  "zh": "<h3>套餐还剩多少，心里有数</h3><p>Claude Code 和 Codex 的 5 小时、本周额度，以及多久后重置，就在右栏底下，不用再去网页上查。</p>",
+  "en": "<h3>Know what's left of your plan</h3><p>Claude Code's and Codex's 5-hour and weekly windows, and when each resets, sit at the foot of the right column. No more looking it up on the web.</p>"
+ },
+ {
+  "zh": "和普通终端，差在哪",
+  "en": "What's different from a plain terminal"
+ },
+ {
+  "zh": "同样跑 Claude Code、Codex，同样的 shell 和快捷键。多出来的是这些。",
+  "en": "Same Claude Code and Codex, same shell and keys. Here's what you get on top."
+ },
+ {
+  "zh": "<span class=\"sr-only\">场景</span>",
+  "en": "<span class=\"sr-only\">When</span>"
+ },
+ {
+  "zh": "<th scope=\"col\">普通终端</th>",
+  "en": "<th scope=\"col\">A plain terminal</th>"
+ },
+ {
+  "zh": "<th scope=\"row\">agent 在做什么</th><td>切到那个标签页去看</td><td>每个会话一个角色，那一行写着她正在改哪个文件、跑哪条命令</td>",
+  "en": "<th scope=\"row\">What an agent is doing</th><td>Switch to its tab and look</td><td>Each session has a character whose row names the file she's editing or the command she's running</td>"
+ },
+ {
+  "zh": "<th scope=\"row\">有人在等你</th><td>不切过去就不知道</td><td>角色举手、系统通知，",
+  "en": "<th scope=\"row\">An agent is waiting for you</th><td>You won't know until you look</td><td>She raises a hand, a notification arrives, and "
+ },
+ {
+  "zh": " 直接跳过去</td>",
+  "en": " takes you there</td>"
+ },
+ {
+  "zh": "<th scope=\"row\">同时开很多会话</th><td>一排长得一样的标签页</td><td>会话栏一眼看全；",
+  "en": "<th scope=\"row\">Many sessions at once</th><td>A row of identical tabs</td><td>The sessions column shows them all; "
+ },
+ {
+  "zh": " 把所有会话摆上一张茶桌</td>",
+  "en": " seats every session at one tea table</td>"
+ },
+ {
+  "zh": "<th scope=\"row\">套餐用量</th><td>打开网页，或者在 agent 里问</td><td>Claude Code、Codex 的额度和重置时间就在右栏</td>",
+  "en": "<th scope=\"row\">Plan usage</th><td>Open a web page, or ask the agent</td><td>Claude Code's and Codex's windows and reset times are in the right column</td>"
+ },
+ {
+  "zh": "<th scope=\"row\">关掉再打开</th><td>重新 cd，重新启动 agent</td><td>会话回到原来的文件夹，agent 接着之前的对话</td>",
+  "en": "<th scope=\"row\">Quit and reopen</th><td>cd back and start the agent again</td><td>Sessions return to their folders and agents resume their conversations</td>"
+ },
+ {
+  "zh": "<th scope=\"row\">临时跑一条命令</th><td>再开一个窗口</td><td>",
+  "en": "<th scope=\"row\">A quick extra command</th><td>Open another window</td><td>"
+ },
+ {
+  "zh": " 在同一个文件夹拉出抽屉终端</td>",
+  "en": " opens a drawer shell in the same folder</td>"
+ },
+ {
+  "zh": "角色识别目前支持 macOS 和 Linux；Windows 版可以正常当终端用，暂不识别 agent。快捷键以 macOS 为例，Windows 和 Linux 的对应按键在「设置 → 终端」里。",
+  "en": "Characters follow agents on macOS and Linux; on Windows it works as a terminal but doesn't recognize agents yet. Keys are shown for macOS; Settings → Terminal lists Windows' and Linux's."
+ },
+ {
+  "zh": "在「设置 → 终端 → Agent hooks」安装 hooks",
+  "en": "Install hooks in Settings → Terminal → Agent hooks"
+ },
+ {
+  "zh": "<small>不装 hooks 角色也会出现；装上之后状态更准，还能看到她在改哪个文件、跑哪条命令。</small>",
+  "en": "<small>Characters show up without hooks too; with them, her state is exact and her row names the file she's editing or the command she's running.</small>"
+ },
+ {
+  "zh": "不需要。终端、角色，以及点鲸鱼娘弹出的任务卡，都不调用 AI，也不用填任何 Key；你的 coding agent 照常用它自己的账号登录。只有在设置里打开鲸鱼娘的 AI 解释和建议，才需要填你自己的模型服务。",
+  "en": "No. The terminal, the characters and the task cards the whale girl shows when you click her use no AI and need no key, and your coding agents sign in as they always do. Only the whale girl's optional AI explanations and suggestions need a model provider of your own, set up in Settings."
+ },
+ {
+  "zh": "这是真实的应用截图：Claude 学姐、GPT 娘和 Gemini 星在干活，Kimi 兔在等你回答，Grok 娘已经跑完。往下滚，镜头会推近每一处。",
+  "en": "A real screenshot of the app: Claude Senpai, GPT-chan and Gemini Star are at work, Kimi Bunny is waiting for your answer, and Grok-chan is done. Scroll, and the view moves in on each part."
+ },
+ {
+  "zh": " 在同一个文件夹拉出抽屉终端，临时跑一条命令。退出应用再打开，每个会话会回到原来的文件夹，agent 接着之前的对话。</p>",
+  "en": " opens a drawer shell in the same folder for a quick command. Quit the app and reopen it, and every session returns to its folder, with its agent picking up the conversation.</p>"
+ },
+ {
+  "zh": "八位老朋友，各有各的忙法。鲸鱼娘身兼两职：平时趴在窗边照看所有会话，跑 dscode 或 DeepSeek 的会话里也是她。点一个头像，看看她们平时都在干什么。",
+  "en": "Eight old friends, each busy in her own way. The whale girl has two jobs: she watches over every session from the edge of the window, and she's also the one at work in dscode and DeepSeek sessions. Pick one to see what she gets up to."
+ },
+ {
+  "zh": "Ely Tea Party 的上游项目，Zachary Zhang 写的原生终端",
+  "en": "The upstream project: Zachary Zhang's native terminal, where Ely Tea Party began"
+ },
+ {
+  "zh": "aria-label=\"页内导航\"",
+  "en": "aria-label=\"On this page\""
+ },
+ {
+  "zh": "<span class=\"spot-name\">首页</span>",
+  "en": "<span class=\"spot-name\">Top</span>"
+ },
+ {
+  "zh": "<span class=\"spot-name\">功能</span>",
+  "en": "<span class=\"spot-name\">Tour</span>"
+ },
+ {
+  "zh": "<span class=\"spot-name\">对比</span>",
+  "en": "<span class=\"spot-name\">Compare</span>"
+ },
+ {
+  "zh": "<span class=\"spot-name\">成员</span>",
+  "en": "<span class=\"spot-name\">The cast</span>"
+ },
+ {
+  "zh": "<span class=\"spot-name\">下载</span>",
+  "en": "<span class=\"spot-name\">Download</span>"
+ },
+ {
+  "zh": "<span class=\"spot-name\">问答</span>",
+  "en": "<span class=\"spot-name\">FAQ</span>"
  }
 ]

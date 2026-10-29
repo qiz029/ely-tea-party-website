@@ -1,6 +1,6 @@
 # Ely Tea Party website
 
-The public introduction, built-in character previews and release downloads at https://elyteaparty.com. Static HTML, CSS and JavaScript; no framework, visitor accounts, cookies or external font dependencies. The hero's water is a WebGPU shader in `src/ocean.js`; browsers without WebGPU see the CSS gradient beneath it, and pausing the animations stops it. The avatar marketplace and binary/update hosting migration are separate follow-ups.
+The public introduction, built-in character previews and release downloads at https://elyteaparty.com. Static HTML, CSS and JavaScript; no framework, visitor accounts, cookies or external font dependencies. The page's water is a WebGPU canvas behind everything, in `src/ocean.js`: caustics at the surface that darken as you scroll, and plankton that gathers into the tour's screenshot (any `[data-form]` image) before the real picture takes over. Browsers without WebGPU see the CSS gradient and the plain screenshot, and pausing the animations stops it. The tour then moves its camera over that screenshot, one step per feature; the glass guide at the left marks the section on screen. The avatar marketplace and binary/update hosting migration are separate follow-ups.
 
 ## Development
 

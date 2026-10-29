@@ -166,7 +166,45 @@ new IntersectionObserver(([entry], observer) => {
   warmAround(false);
 }, { rootMargin: '800px 0px' }).observe(castView);
 
+// The guide slides its chip to the section the middle of the screen is in.
+const guide = document.querySelector('.guide');
+const mark = guide.querySelector('.guide-mark');
+const spots = [...guide.querySelectorAll('a')];
+function place() {
+  const spot = spots.find(link => link.getAttribute('aria-current') === 'true');
+  if (!spot) return;
+  mark.style.translate = `${spot.offsetLeft}px ${spot.offsetTop}px`;
+  mark.style.width = `${spot.offsetWidth}px`;
+  mark.style.height = `${spot.offsetHeight}px`;
+  mark.classList.add('on');
+}
+if ('IntersectionObserver' in window) {
+  const here = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      for (const spot of spots) spot.setAttribute('aria-current', String(spot.dataset.spot === entry.target.id));
+      place();
+    }
+  }, { rootMargin: '-50% 0px -50% 0px' });
+  for (const spot of spots) here.observe(document.getElementById(spot.dataset.spot));
+  addEventListener('resize', place);
+}
+
+// The tour's frame moves its camera to whichever step is in the middle of the screen.
 const tourShot = document.querySelector('.tour-shot');
+const steps = document.querySelector('.steps');
+if ('IntersectionObserver' in window) {
+  const middle = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      tourShot.dataset.step = entry.target.dataset.step;
+      for (const step of steps.children) step.classList.toggle('current', step === entry.target);
+    }
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  steps.children[0].classList.add('current');
+  for (const step of steps.children) middle.observe(step);
+  steps.classList.add('live');
+}
 const tourImage = tourShot.querySelector('img');
 if (!tourImage.complete) {
   tourShot.classList.add('waiting');
@@ -227,7 +265,7 @@ setInterval(() => {
 
 // Below the hero, each block rises into place once, the first time it scrolls into view.
 const revealed = [
-  '.heading', '.tour-copy > h2', '.tour-copy > .sub', '.notes li', '.tour-shot', '.spot', '.cast-info', '.roster',
+  '.heading', '.versus tbody tr', '.spot', '.cast-info', '.roster',
   '.skin-line', '.platform', '.download-footnote', '.first-time', '.faq-inner > div', '.faq-list details', '.footer-inner > *',
 ].join(',');
 if (!motionPreference.matches && 'IntersectionObserver' in window) {

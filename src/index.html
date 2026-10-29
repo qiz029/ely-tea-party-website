@@ -71,8 +71,6 @@
     <div class="wrap header-inner">
       <a class="brand" href="/" aria-label="Ely Tea Party 首页"><img src="/assets/icon.png" width="34" height="34" alt="">Ely Tea Party</a>
       <nav aria-label="主导航">
-        <a href="#product">认识 Ely</a>
-        <a href="#characters">茶会成员</a>
         <a href="/releases/">更新日志</a>
         <a href="https://github.com/ELY-Open-Source/ely-tea-party">GitHub</a>
         <a class="lang" href="/en/" hreflang="en" lang="en">EN</a>
@@ -81,9 +79,18 @@
     </div>
   </header>
 
+  <canvas id="ocean" aria-hidden="true"></canvas>
+  <nav class="guide" aria-label="页内导航">
+    <span class="guide-mark" aria-hidden="true"></span>
+    <a href="#top" data-spot="top"><small aria-hidden="true">01</small><span class="spot-name">首页</span></a>
+    <a href="#product" data-spot="product"><small aria-hidden="true">02</small><span class="spot-name">功能</span></a>
+    <a href="#compare" data-spot="compare"><small aria-hidden="true">03</small><span class="spot-name">对比</span></a>
+    <a href="#characters" data-spot="characters"><small aria-hidden="true">04</small><span class="spot-name">成员</span></a>
+    <a href="#download" data-spot="download"><small aria-hidden="true">05</small><span class="spot-name">下载</span></a>
+    <a href="#faq" data-spot="faq"><small aria-hidden="true">06</small><span class="spot-name">问答</span></a>
+  </nav>
   <main id="main">
-    <section class="sea" aria-labelledby="hero-title">
-      <canvas id="ocean" aria-hidden="true"></canvas>
+    <section class="sea" id="top" aria-labelledby="hero-title">
       <div class="bubbles" aria-hidden="true"></div>
       <div class="hero wrap">
         <p class="pill"><b>v@@VERSION@@</b> 免费 · 开源 · macOS / Windows / Linux</p>
@@ -176,26 +183,51 @@
     </div>
 
     <section class="section tour" id="product" aria-labelledby="product-title">
-      <div class="wrap tour-grid">
-        <div class="tour-copy">
-          <h2 id="product-title">每个会话，<br>都有自己的小表情</h2>
-          <p class="sub">熟悉的命令行依然是主角。角色、状态、Git 和文件，就在它身边。</p>
-          <ol class="notes">
-            <li><span class="pin-no">1</span><div><h3>不用挨个问「好了吗」</h3><p>装好 agent hooks，角色会跟着任务变。比如左栏的 Kimi 兔：头上冒出红色感叹号，「递卷轴等你」——她在等你回答。</p></div></li>
-            <li><span class="pin-no">2</span><div><h3>鲸鱼娘趴在窗边</h3><p>有人等你时，她也会举起感叹号。点她一下，等你的会话排在最前，一键跳回那个终端。</p></div></li>
-            <li><span class="pin-no">3</span><div><h3>可爱，也认真工作</h3><p>Git 改动与提交、文件、活动时间线和 Codex 用量都在右栏。会话能恢复，抽屉终端随手跑一条命令。</p></div></li>
-          </ol>
+      <div class="wrap">
+        <div class="heading tour-head">
+          <h2 id="product-title">打开它，<br>你会看到这些</h2>
+          <p class="sub">这是真实的应用截图：Claude 学姐、GPT 娘和 Gemini 星在干活，Kimi 兔在等你回答，Grok 娘已经跑完。往下滚，镜头会推近每一处。</p>
         </div>
-        <figure class="tour-shot">
-          <picture>
-            <source type="image/avif" srcset="/art/shot/screenshot-1200.avif 1200w, /art/shot/screenshot-1800.avif 1800w, /art/shot/screenshot-2400.avif 2400w" sizes="(max-width: 1080px) calc(100vw - 32px), 740px">
-            <source type="image/webp" srcset="/art/shot/screenshot-1200.webp 1200w, /art/shot/screenshot-1800.webp 1800w, /art/shot/screenshot-2400.webp 2400w" sizes="(max-width: 1080px) calc(100vw - 32px), 740px">
-            <img src="/assets/screenshot.png" width="2400" height="1691" fetchpriority="low" decoding="async" alt="Ely Tea Party 应用截图：左侧角色会话，中间 Codex 终端，右侧 Git、文件和用量面板">
-          </picture>
-          <span class="pin" style="--px:18.5%;--py:49%" aria-hidden="true">1</span>
-          <span class="pin" style="--px:22.5%;--py:3%" aria-hidden="true">2</span>
-          <span class="pin" style="--px:79.6%;--py:17.3%" aria-hidden="true">3</span>
-        </figure>
+        <div class="story">
+          <ol class="steps">
+            <li class="step" data-step="0"><span class="step-no">01</span><h3>一个窗口，一桌 agent</h3><p>左边是会话，中间是终端，右边是 Git、文件和用量。Claude Code、Codex、Gemini 们照常在里面跑，用的还是你自己的账号。</p></li>
+            <li class="step" data-step="1"><span class="step-no">02</span><h3>谁在干活，看一眼就知道</h3><p>每个会话的 agent 是一个会动的角色，那一行写着她手上的事：<code>改 src/pet/whale.rs</code>、<code>跑 cargo test</code>、<code>读 docs/architecture.md</code>。不用挨个切进去问「好了吗」。</p></li>
+            <li class="step" data-step="2"><span class="step-no">03</span><h3>等你的时候，她们会举手</h3><p>Kimi 兔头上冒出红色感叹号：她在等你回答，窗口上方的鲸鱼娘也跟着举手。<kbd>⌘</kbd><kbd>⇧</kbd><kbd>U</kbd> 直接跳到等你的会话；窗口在后台时，还会发系统通知。</p></li>
+            <li class="step" data-step="3"><span class="step-no">04</span><h3>底下是一个真正的终端</h3><p>真彩色、kitty 键盘协议、输入法、链接和提示符跳转都在。<kbd>⌘</kbd><kbd>J</kbd> 在同一个文件夹拉出抽屉终端，临时跑一条命令。退出应用再打开，每个会话会回到原来的文件夹，agent 接着之前的对话。</p></li>
+            <li class="step" data-step="4"><span class="step-no">05</span><h3>Git、文件和活动，就在旁边</h3><p>暂存、提交、看 diff；文件树带着 Git 标记；活动时间线列出 agent 的每次提问、每个工具和用了多久。</p></li>
+            <li class="step" data-step="5"><span class="step-no">06</span><h3>套餐还剩多少，心里有数</h3><p>Claude Code 和 Codex 的 5 小时、本周额度，以及多久后重置，就在右栏底下，不用再去网页上查。</p></li>
+          </ol>
+          <div class="tour-stage">
+            <figure class="tour-shot" data-form="/art/shot/screenshot-1200.webp" data-share="0.75" data-step="0">
+              <picture>
+                <source type="image/avif" srcset="/art/shot/screenshot-1200.avif 1200w, /art/shot/screenshot-1800.avif 1800w, /art/shot/screenshot-2400.avif 2400w" sizes="1600px">
+                <source type="image/webp" srcset="/art/shot/screenshot-1200.webp 1200w, /art/shot/screenshot-1800.webp 1800w, /art/shot/screenshot-2400.webp 2400w" sizes="1600px">
+                <img src="/assets/screenshot.png" width="2400" height="1691" fetchpriority="low" decoding="async" alt="Ely Tea Party 应用截图：左侧角色会话，中间 Codex 终端，右侧 Git、文件和用量面板">
+              </picture>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compare" id="compare" aria-labelledby="compare-title">
+      <div class="wrap">
+        <div class="heading center">
+          <h2 id="compare-title">和普通终端，差在哪</h2>
+          <p class="sub">同样跑 Claude Code、Codex，同样的 shell 和快捷键。多出来的是这些。</p>
+        </div>
+        <table class="versus">
+          <thead><tr><th scope="col"><span class="sr-only">场景</span></th><th scope="col">普通终端</th><th scope="col">Ely Tea Party</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">agent 在做什么</th><td>切到那个标签页去看</td><td>每个会话一个角色，那一行写着她正在改哪个文件、跑哪条命令</td></tr>
+            <tr><th scope="row">有人在等你</th><td>不切过去就不知道</td><td>角色举手、系统通知，<kbd>⌘</kbd><kbd>⇧</kbd><kbd>U</kbd> 直接跳过去</td></tr>
+            <tr><th scope="row">同时开很多会话</th><td>一排长得一样的标签页</td><td>会话栏一眼看全；<kbd>⌘</kbd><kbd>⇧</kbd><kbd>O</kbd> 把所有会话摆上一张茶桌</td></tr>
+            <tr><th scope="row">套餐用量</th><td>打开网页，或者在 agent 里问</td><td>Claude Code、Codex 的额度和重置时间就在右栏</td></tr>
+            <tr><th scope="row">关掉再打开</th><td>重新 cd，重新启动 agent</td><td>会话回到原来的文件夹，agent 接着之前的对话</td></tr>
+            <tr><th scope="row">临时跑一条命令</th><td>再开一个窗口</td><td><kbd>⌘</kbd><kbd>J</kbd> 在同一个文件夹拉出抽屉终端</td></tr>
+          </tbody>
+        </table>
+        <p class="versus-note">角色识别目前支持 macOS 和 Linux；Windows 版可以正常当终端用，暂不识别 agent。快捷键以 macOS 为例，Windows 和 Linux 的对应按键在「设置 → 终端」里。</p>
       </div>
     </section>
 
@@ -203,7 +235,7 @@
       <div class="wrap">
         <div class="heading split">
           <h2 id="party-title">今天，谁和你一起写代码？</h2>
-          <p class="sub">八位老朋友，各有各的忙法。点一个头像，看看她平时都在干什么。</p>
+          <p class="sub">八位老朋友，各有各的忙法。鲸鱼娘身兼两职：平时趴在窗边照看所有会话，跑 dscode 或 DeepSeek 的会话里也是她。点一个头像，看看她们平时都在干什么。</p>
         </div>
         <div class="cast" style="--tint:#D97757">
           <div class="spot">
@@ -254,16 +286,16 @@
           <div class="platform" data-platform="linux"><div class="os-icon" aria-hidden="true">&gt;_</div><div class="os-name"><h3>Linux</h3><p class="os-spec">x86_64 · glibc 2.35+</p></div><p class="os-note">解压后安装；需要 libxkbcommon、libxkbcommon-x11 和 libxcb。<a href="https://github.com/ELY-Open-Source/ely-tea-party#install">安装步骤 ↗</a></p><a class="button download-button" href="@@LINUX_URL@@">下载 .tar.gz <span aria-hidden="true">↓</span></a></div>
         </div>
         <p class="download-footnote">安装包由 Cloudflare 提供，与 GitHub Releases 一致 · 免费使用 · MIT 开源 · <a href="@@CHECKSUM_URL@@">SHA256 校验文件 ↗</a></p>
-        <p class="first-time"><b>第一次来？</b>安装并打开 Ely<span aria-hidden="true">→</span>启动你熟悉的 coding agent<span aria-hidden="true">→</span>在「设置 → 终端 → Agent hooks」安装 hooks，重启 agent</p>
+        <p class="first-time"><b>第一次来？</b>安装并打开 Ely<span aria-hidden="true">→</span>在「设置 → 终端 → Agent hooks」安装 hooks<span aria-hidden="true">→</span>启动你熟悉的 coding agent<small>不装 hooks 角色也会出现；装上之后状态更准，还能看到她在改哪个文件、跑哪条命令。</small></p>
       </div>
     </section>
 
-    <section class="section faq" aria-labelledby="faq-title">
+    <section class="section faq" id="faq" aria-labelledby="faq-title">
       <div class="wrap faq-inner">
         <div><p class="kicker">入座之前</p><h2 id="faq-title">你可能想知道</h2></div>
         <div class="faq-list">
           <details><summary>这是一个新的 AI 模型吗？</summary><p>不是。Ely Tea Party 是一个原生终端，你仍然使用自己的 Claude Code、Codex、Gemini 等工具及其账号。Ely 把会话状态变成动画角色，并提供会话管理、Git、文件和活动信息。</p></details>
-          <details><summary>需要填写 API Key 才能使用吗？</summary><p>终端、角色和本地任务卡不需要 Ely 的 API Key。你的 coding agent 按自身方式登录。鲸鱼娘的 AI 解释和建议是可选功能，开启后才需要配置对应的模型服务。</p></details>
+          <details><summary>需要填写 API Key 才能使用吗？</summary><p>不需要。终端、角色，以及点鲸鱼娘弹出的任务卡，都不调用 AI，也不用填任何 Key；你的 coding agent 照常用它自己的账号登录。只有在设置里打开鲸鱼娘的 AI 解释和建议，才需要填你自己的模型服务。</p></details>
           <details><summary>可以换成自己的角色吗？</summary><p>可以。在「设置 → 角色」导入 PNG、APNG、GIF、WebP 或完整的 .elyskin 形象包，也可以给不同动作配置不同动画。你能导出自己的形象包分享给朋友；网站形象市场尚未开放。</p></details>
           <details><summary>和 ELYTerminal 是什么关系？</summary><p>Ely Tea Party 是获得作者许可的 ELYTerminal 分支。底层终端和原有设计来自 Zachary Zhang 与 ELYTerminal；这个分支加入了 coding agent 角色、鲸鱼娘和相关工作流。<a href="https://terminal.elygpui.com/">认识原项目 ↗</a></p></details>
         </div>
@@ -276,7 +308,7 @@
       <div><a class="brand" href="/"><img src="/assets/icon.png" width="30" height="30" alt="">Ely Tea Party</a><p>A terminal where your coding agents come to tea.</p></div>
       <nav class="footer-family" aria-label="Ely 家族">
         <p class="footer-title">Ely 家族</p>
-        <a href="https://terminal.elygpui.com/"><b>ELYTerminal ↗</b><span>Ely Tea Party 的原项目，作者的原生终端</span></a>
+        <a href="https://terminal.elygpui.com/"><b>ELYTerminal ↗</b><span>Ely Tea Party 的上游项目，Zachary Zhang 写的原生终端</span></a>
         <a href="https://office.elygpui.com/"><b>Ely Office ↗</b><span>文档、表格、幻灯片、PDF、邮件、Git 和 Markdown，七款离线桌面应用</span></a>
       </nav>
       <div class="footer-links"><a href="https://github.com/ELY-Open-Source/ely-tea-party">GitHub ↗</a><a href="https://github.com/ELY-Open-Source/ely-tea-party/issues">反馈问题 ↗</a><a href="/LICENSE.txt">MIT License</a></div>
