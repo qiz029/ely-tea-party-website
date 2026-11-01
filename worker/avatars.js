@@ -30,23 +30,6 @@ export async function clearAvatar(env, id) {
   await removeAll(env, id);
 }
 
-// A new account's picture from Google or GitHub, copied here so visitors never load it from them.
-export async function importAvatar(env, id, url) {
-  try {
-    const parsed = new URL(url);
-    const local = (env.WORKOS_API_URL ?? '').startsWith('http://') && parsed.protocol === 'http:';
-    if (parsed.protocol !== 'https:' && !local) return;
-    const response = await fetch(parsed, { signal: AbortSignal.timeout(8000) });
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    if (Number(response.headers.get('content-length') ?? 0) > MOST_AVATAR_BYTES) throw new Error('too large');
-    const bytes = new Uint8Array(await response.arrayBuffer());
-    await storeAvatar(env, id, bytes);
-    console.log(`avatars: imported account ${id}'s picture`);
-  } catch (error) {
-    console.error(`avatars: account ${id}'s picture was not imported:`, error.message);
-  }
-}
-
 export async function serveAvatar(env, id, file) {
   const object = await env.SKINS.get(`avatars/${id}/${file}`);
   if (!object) throw new HttpError(404, 'no such picture', 'not_found');

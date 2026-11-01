@@ -3,12 +3,12 @@ import { api, english, prefix } from '/market.js';
 import { avatar } from '/account.js';
 
 const words = english ? {
-  saved: 'Saved.', methods: { GoogleOAuth: 'Google', GitHubOAuth: 'GitHub' }, emailCode: 'Email code', unknown: 'Couldn’t be loaded',
+  saved: 'Saved.',
   sessions: n => `${n} device${n === 1 ? '' : 's'}`, confirmAll: 'Sign out on every device, this one included?',
   confirmDelete: 'Delete your account and every skin you published? This can’t be undone.', badImage: 'That file couldn’t be read as an image.',
   uploading: 'Uploading…',
 } : {
-  saved: '已保存。', methods: { GoogleOAuth: 'Google', GitHubOAuth: 'GitHub' }, emailCode: '邮箱验证码', unknown: '暂时读取不到',
+  saved: '已保存。',
   sessions: n => `${n} 台设备`, confirmAll: '要在所有设备上退出登录吗？包括当前这台。',
   confirmDelete: '确定注销账号并删除你发布的所有皮肤吗？此操作无法恢复。', badImage: '这个文件无法作为图片读取。',
   uploading: '正在上传…',
@@ -47,8 +47,6 @@ async function start() {
   inputs.forEach((input, i) => { input.value = account.links[i] ?? ''; });
   showPicture();
   $('#email').textContent = user.email;
-  $('#methods').textContent = account.providers === null ? words.unknown
-    : [...account.providers.map(p => words.methods[p] ?? p), words.emailCode].join(' · ');
   $('#sessions').textContent = words.sessions(account.sessions);
   for (const id of ['#profile-form', '#account', '#danger']) $(id).hidden = false;
 }

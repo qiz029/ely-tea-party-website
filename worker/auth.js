@@ -1,7 +1,7 @@
-// Sign-in through WorkOS AuthKit (Google, GitHub or an emailed code); a session is an HttpOnly cookie.
+// Sign-in with an emailed code through WorkOS AuthKit; a session is an HttpOnly cookie.
 import { HttpError, json, readJson, now, sha256, random, keyed, ip, limit } from './http.js';
-import { authorizeUrl, authenticate, PROVIDERS } from './workos.js';
-import { importAvatar, avatarUrl } from './avatars.js';
+import { authorizeUrl, authenticate } from './workos.js';
+import { avatarUrl } from './avatars.js';
 
 const COOKIE = '__Host-ely_session';
 const LOGIN_COOKIE = '__Host-ely_login';
@@ -57,17 +57,15 @@ function redirect(location, cookies = []) {
 
 async function login(request, env) {
   const url = new URL(request.url);
-  const provider = url.searchParams.get('provider');
   const next = landing(url.searchParams.get('next'));
-  if (!(provider in PROVIDERS)) throw new HttpError(400, 'provider is google, github or email', 'bad_provider');
   await limit(env, `login:${await keyed(env.SECRET, ip(request))}`, 30, 600, 'too many sign-ins from this network; try again in a few minutes');
   const state = random(16);
-  const target = authorizeUrl(env, { provider, redirect: `${url.origin}/api/auth/callback`, state });
+  const target = authorizeUrl(env, { redirect: `${url.origin}/api/auth/callback`, state });
   return redirect(target, [cookie(LOGIN_COOKIE, `${state}.${encodeURIComponent(next)}`, LOGIN_SECONDS)]);
 }
 
 // The WorkOS user's account here: found by WorkOS id, else by verified email, else made.
-async function account(env, ctx, person) {
+async function account(env, person) {
   const email = person.email.trim().toLowerCase();
   const byId = await env.DB.prepare(`SELECT ${USER} FROM users u WHERE u.workos_id = ?`).bind(person.id).first();
   if (byId) {
@@ -87,11 +85,10 @@ async function account(env, ctx, person) {
   const name = [person.first_name, person.last_name].filter(Boolean).join(' ').trim().slice(0, 40) || null;
   const made = await env.DB.prepare('INSERT INTO users (email, workos_id, name, created) VALUES (?, ?, ?, ?) RETURNING id').bind(email, person.id, name, now()).first();
   console.log(`auth: made account ${made.id}`);
-  if (person.profile_picture_url) ctx.waitUntil(importAvatar(env, made.id, person.profile_picture_url));
   return { id: made.id, email, handle: null, banned: false, name, avatar: null, workosId: person.id };
 }
 
-async function callback(request, env, ctx) {
+async function callback(request, env) {
   const url = new URL(request.url);
   const saved = readCookie(request, LOGIN_COOKIE, '[a-f0-9]{32}\\.[^;]*');
   const decode = text => { try { return decodeURIComponent(text); } catch { return ''; } };
@@ -104,7 +101,7 @@ async function callback(request, env, ctx) {
   if (!state || !code || url.searchParams.get('state') !== state) return fail('expired');
   let user;
   try {
-    user = await account(env, ctx, await authenticate(env, code, request));
+    user = await account(env, await authenticate(env, code, request));
   } catch (error) {
     if (error instanceof HttpError) return fail(error.code);
     throw error;
@@ -140,7 +137,7 @@ async function setHandle(request, env) {
   return json({ user: describe(env, { ...user, handle }) });
 }
 
-export async function authRoutes(request, env, ctx, route) {
+export async function authRoutes(request, env, route) {
   if (route === 'auth/login' && request.method === 'GET') {
     try {
       return await login(request, env);
@@ -150,7 +147,7 @@ export async function authRoutes(request, env, ctx, route) {
       return redirect(`${english(next) ? '/en' : ''}/login/?error=${error.code}&next=${encodeURIComponent(next)}`);
     }
   }
-  if (route === 'auth/callback' && request.method === 'GET') return callback(request, env, ctx);
+  if (route === 'auth/callback' && request.method === 'GET') return callback(request, env);
   if (route === 'auth/logout' && request.method === 'POST') return logout(request, env);
   if (route === 'me' && request.method === 'GET') return json({ user: describe(env, await currentUser(request, env)) });
   if (route === 'me/handle' && request.method === 'POST') return setHandle(request, env);

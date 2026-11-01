@@ -11,7 +11,7 @@ const PROFILE = /^\/(en\/)?u\/([a-z0-9-]+)\/?$/;
 async function api(request, env, ctx, route) {
   try {
     sameOrigin(request);
-    const response = (await authRoutes(request, env, ctx, route)) ?? (await profileRoutes(request, env, route)) ?? (await skinRoutes(request, env, ctx, route));
+    const response = (await authRoutes(request, env, route)) ?? (await profileRoutes(request, env, route)) ?? (await skinRoutes(request, env, ctx, route));
     if (!response) throw new HttpError(404, 'no such API', 'not_found');
     return response;
   } catch (error) {

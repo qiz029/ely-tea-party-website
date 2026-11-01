@@ -1,7 +1,5 @@
-// WorkOS AuthKit over its REST API: the sign-in page's URL, the code exchange, a user's linked logins and their removal.
+// WorkOS AuthKit over its REST API: the email-code sign-in page's URL, the code exchange and removing a user.
 import { HttpError } from './http.js';
-
-export const PROVIDERS = { google: 'GoogleOAuth', github: 'GitHubOAuth', email: 'authkit' };
 
 const base = env => (env.WORKOS_API_URL || 'https://api.workos.com').replace(/\/$/, '');
 
@@ -9,10 +7,10 @@ function configured(env) {
   if (!env.WORKOS_CLIENT_ID || !env.WORKOS_API_KEY) throw new HttpError(503, 'sign-in is not set up yet', 'no_auth');
 }
 
-export function authorizeUrl(env, { provider, redirect, state }) {
+export function authorizeUrl(env, { redirect, state }) {
   configured(env);
   const url = new URL(`${base(env)}/user_management/authorize`);
-  url.search = new URLSearchParams({ response_type: 'code', client_id: env.WORKOS_CLIENT_ID, redirect_uri: redirect, provider: PROVIDERS[provider], state });
+  url.search = new URLSearchParams({ response_type: 'code', client_id: env.WORKOS_CLIENT_ID, redirect_uri: redirect, provider: 'authkit', state });
   return url.href;
 }
 
@@ -42,12 +40,6 @@ export async function authenticate(env, code, request) {
   });
   if (!answer?.user?.id || !answer.user.email) throw new HttpError(502, 'the sign-in service answered without a user', 'auth_failed');
   return answer.user;
-}
-
-// The providers a WorkOS user has signed in with, e.g. ["GoogleOAuth"].
-export async function identities(env, id) {
-  const list = await call(env, `/user_management/users/${encodeURIComponent(id)}/identities`);
-  return (Array.isArray(list) ? list : list?.data ?? []).map(identity => identity.provider).filter(Boolean);
 }
 
 export async function removeUser(env, id) {

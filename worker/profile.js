@@ -3,7 +3,7 @@ import { HttpError, json, readJson, cleanText, limit } from './http.js';
 import { currentUser, requireUser, isAdmin, describe, clearSession } from './auth.js';
 import { avatarUrl, storeAvatar, clearAvatar, serveAvatar } from './avatars.js';
 import { present, SELECT, removeFiles } from './skins.js';
-import { identities, removeUser } from './workos.js';
+import { removeUser } from './workos.js';
 import { MOST_AVATAR_BYTES } from './images.js';
 
 const HANDLE = /^[a-z0-9][a-z0-9-]{0,22}[a-z0-9]$/;
@@ -67,16 +67,12 @@ async function deleteAvatar(request, env) {
   return json({ user: describe(env, { ...user, avatar: null }) });
 }
 
-// The account page's facts: the address, the ways to sign in and the open sessions.
+// The account page's facts: the address and the open sessions.
 async function account(request, env) {
   const user = await requireUser(request, env, { handle: false });
   const row = await env.DB.prepare('SELECT bio, links, created, (SELECT count(*) FROM sessions WHERE user_id = ? AND expires > unixepoch()) AS sessions FROM users WHERE id = ?')
     .bind(user.id, user.id).first();
-  let providers = null;
-  if (user.workosId) {
-    try { providers = await identities(env, user.workosId); } catch (error) { console.error('profile: identities', error.message); }
-  }
-  return json({ user: describe(env, user), bio: row.bio, links: JSON.parse(row.links), joined: row.created, sessions: row.sessions, providers });
+  return json({ user: describe(env, user), bio: row.bio, links: JSON.parse(row.links), joined: row.created, sessions: row.sessions });
 }
 
 async function signOutEverywhere(request, env) {

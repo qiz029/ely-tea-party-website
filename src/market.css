@@ -82,7 +82,6 @@
 .login-card h1 { margin: 0; font-size: 32px }
 .login-card .sub { margin: 0 0 8px; font-size: 15px }
 .provider { gap: 10px; justify-content: center }
-.provider:not(.ghost) { background: #fff; color: #1f2430 }
 .provider svg { flex: none }
 .login-error { margin: 0; padding: 10px 14px; border-radius: 12px; background: rgba(255, 120, 120, .12); color: #ffb4b4; font-size: 14px }
 
