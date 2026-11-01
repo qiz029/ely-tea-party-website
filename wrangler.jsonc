@@ -12,7 +12,7 @@
     "run_worker_first": ["/api/*", "/skins/*", "/en/skins/*"]
   },
   "d1_databases": [
-    { "binding": "DB", "database_name": "ely-tea-party-market", "database_id": "00000000-0000-0000-0000-000000000000", "migrations_dir": "migrations" }
+    { "binding": "DB", "database_name": "ely-tea-party-market", "database_id": "c91ce8da-afa4-4602-b552-5b762b2ba2c1", "migrations_dir": "migrations" }
   ],
   "r2_buckets": [{ "binding": "SKINS", "bucket_name": "ely-tea-party-skins" }],
   "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["login@auth.elyteaparty.com"] }],
