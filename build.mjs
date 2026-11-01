@@ -3,6 +3,7 @@ import { cp, mkdir, readFile, readdir, rm, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { renderChangelog } from './changelog.mjs';
+import { renderMarket } from './market.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const dist = path.join(root, 'dist');
@@ -78,6 +79,13 @@ for (const [lang, page] of Object.entries(pages)) {
   const translations = path.join(root, 'data', `releases.${lang}.json`);
   const translated = existsSync(translations) ? JSON.parse(await readFile(translations, 'utf8')) : {};
   await writeFile(path.join(dist, home, 'releases', 'index.html'), renderChangelog(lang, releases, chrome, translated));
+  // The skin market's pages, each with the language switch pointing at its own counterpart.
+  for (const [file, html] of Object.entries(renderMarket(lang, chrome))) {
+    const page = path.dirname(file) + '/';
+    const header = chrome.header.replace(/(class="lang" href="[^"]*)releases\/"/, `$1${page}"`);
+    await mkdir(path.join(dist, home, path.dirname(file)), { recursive: true });
+    await writeFile(path.join(dist, home, file), html.replace(chrome.header, header));
+  }
 }
 
 // /en/ is the Chinese page with every phrase in i18n/en.json swapped; any phrase left over fails the build.
