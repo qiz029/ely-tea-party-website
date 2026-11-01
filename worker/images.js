@@ -136,4 +136,37 @@ export function inspect(bytes) {
   return { format, type: TYPES[format], width, height, frames, size: b.length };
 }
 
+// A JPEG's size from its first start-of-frame segment.
+function jpeg(b) {
+  let at = 2;
+  while (at + 9 <= b.length) {
+    if (b[at] !== 0xff) fail('a damaged JPEG image');
+    const marker = b[at + 1];
+    if (marker === 0xff) { at += 1; continue; }
+    if (marker === 0xd8 || (marker >= 0xd0 && marker <= 0xd7) || marker === 0x01) { at += 2; continue; }
+    const length = (b[at + 2] << 8) | b[at + 3];
+    if (length < 2) fail('a damaged JPEG image');
+    if (marker >= 0xc0 && marker <= 0xcf && marker !== 0xc4 && marker !== 0xc8 && marker !== 0xcc) {
+      return { width: (b[at + 7] << 8) | b[at + 8], height: (b[at + 5] << 8) | b[at + 6], frames: 1 };
+    }
+    at += 2 + length;
+  }
+  fail('a JPEG without its size');
+}
+
+export const MOST_AVATAR_BYTES = 1024 * 1024;
+
+// A profile picture: PNG, GIF, WebP or JPEG, at most 1 MiB and 1024 pixels a side.
+export function inspectAvatar(bytes) {
+  if (bytes.length > MOST_AVATAR_BYTES) fail('is larger than 1 MiB');
+  if (bytes.length >= 3 && bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) {
+    const { width, height } = jpeg(bytes);
+    if (width < 1 || height < 1 || width > 1024 || height > 1024) fail(`is ${width} × ${height}; each side must be 1 to 1024 pixels`);
+    return { format: 'jpg', type: 'image/jpeg', width, height, frames: 1, size: bytes.length };
+  }
+  const image = inspect(bytes);
+  if (image.width > 1024 || image.height > 1024) fail(`is ${image.width} × ${image.height}; each side must be 1 to 1024 pixels`);
+  return image;
+}
+
 export { ImageError };

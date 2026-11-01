@@ -1,6 +1,9 @@
-// What the skin market's pages share: words, the API, skin cards.
+// What the skin market's pages share: words, the API, skin cards. The header's account menu comes along.
+import '/account.js';
+
 export const english = document.documentElement.lang === 'en';
-export const home = english ? '/en/skins/' : '/skins/';
+export const prefix = english ? '/en' : '';
+export const home = `${prefix}/skins/`;
 
 const agents = { claude: 'Claude', gpt: 'GPT', deepseek: 'DeepSeek', grok: 'Grok', kimi: 'Kimi', gemini: 'Gemini', pi: 'Pi', opencode: 'OpenCode' };
 
@@ -14,7 +17,7 @@ export const say = english ? {
   facts: { target: 'Made for', actions: 'Actions', size: 'Size', downloads: 'Downloads', license: 'License', homepage: 'Homepage', updated: 'Updated', sha: 'SHA-256' },
   actions: { idle: 'Idle', calm: 'Resting', working: 'Working', 'working-research': 'Researching', 'working-special': 'Celebrating', 'working-slack': 'Taking a break', thinking: 'Thinking', needs_input: 'Waiting for input', sleeping: 'Sleeping', walking: 'Walking right', 'walking-left': 'Walking left', 'puzzled-up': 'Peeking up', 'puzzled-down': 'Peeking down' },
   missing: n => `${n} action${n === 1 ? '' : 's'} not drawn; the app shows idle for ${n === 1 ? 'it' : 'them'}`,
-  hidden: 'Hidden: only you and moderators can see this skin.', hide: 'Hide', restore: 'Make public', remove: 'Delete', reports: n => `${n} report${n === 1 ? '' : 's'}`,
+  hidden: 'Hidden: only you and moderators can see this skin.', hide: 'Hide', restore: 'Make public', remove: 'Delete', update: 'Upload a new version', reports: n => `${n} report${n === 1 ? '' : 's'}`,
   confirmRemove: 'Delete this skin for good? Its download link stops working.', hiddenTag: 'Hidden', reported: 'Thanks. A moderator will take a look.', already: 'You already reported this skin.',
   frames: n => `${n} frame${n === 1 ? '' : 's'}`,
   date: s => new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' }).format(new Date(s * 1000)),
@@ -28,7 +31,7 @@ export const say = english ? {
   facts: { target: '适用', actions: '动作', size: '大小', downloads: '下载', license: '许可证', homepage: '主页', updated: '更新于', sha: 'SHA-256' },
   actions: { idle: '待机', calm: '静止', working: '工作', 'working-research': '研究', 'working-special': '特别动作', 'working-slack': '摸鱼', thinking: '思考', needs_input: '等待输入', sleeping: '睡觉', walking: '向右走', 'walking-left': '向左走', 'puzzled-up': '向上探头', 'puzzled-down': '向下探头' },
   missing: n => `有 ${n} 个动作没有画，App 里会用待机图代替`,
-  hidden: '已隐藏：只有你和管理员能看到这个皮肤。', hide: '隐藏', restore: '公开', remove: '删除', reports: n => `${n} 次举报`,
+  hidden: '已隐藏：只有你和管理员能看到这个皮肤。', hide: '隐藏', restore: '公开', remove: '删除', update: '上传新版本', reports: n => `${n} 次举报`,
   confirmRemove: '确定永久删除这个皮肤？下载链接会失效。', hiddenTag: '已隐藏', reported: '谢谢，管理员会尽快查看。', already: '你已经举报过这个皮肤了。',
   frames: n => `${n} 帧`,
   date: s => new Intl.DateTimeFormat('zh-CN', { dateStyle: 'medium' }).format(new Date(s * 1000)),
@@ -39,21 +42,21 @@ export const WHALE_ACTIONS = ['idle', 'calm', 'working', 'working-special', 'wor
 
 // The API answers in English; the Chinese page says the common ones in Chinese. Pack problems stay as they are.
 const zhErrors = {
-  bad_email: '请输入有效的邮箱地址。', rate_limited: '操作太频繁了，请稍后再试。', mail_failed: '验证码暂时发不出去，请稍后再试。',
-  bad_code: '验证码不对，或者已经过期。', bad_handle: '用户名只能用 2 到 24 个小写字母、数字和“-”，开头和结尾不能是“-”。',
+  rate_limited: '操作太频繁了，请稍后再试。', bad_handle: '用户名只能用 2 到 24 个小写字母、数字和“-”，开头和结尾不能是“-”。',
   handle_taken: '这个用户名已经被用了。', handle_set: '你已经设置过用户名了。', no_handle: '请先设置用户名。', signed_out: '请先登录。',
   banned: '这个账号不能上传。', too_large: '角色包最大 44 MiB。', foreign_id: '这个角色包的 ID 属于别的账号，或者没有以你的用户名开头。',
   unchanged: '这个角色包和已发布的版本完全一样。', too_many: '每个账号最多发布 50 个皮肤。', not_found: '这个皮肤不存在，或者已经下架。',
-  no_reason: '请写一下举报原因。', forbidden: '只有管理员能这样做。', conflict: '刚才有冲突，请再试一次。', internal: '服务器出错了，请稍后再试。',
+  no_reason: '请写一下举报原因。', no_user: '没有这个用户。', bad_profile: '资料里有不支持的内容或超出了长度。', bad_link: '链接必须是 https:// 开头的网址。',
+  bad_avatar: '头像必须是 1 MiB 以内、边长不超过 1024 像素的 PNG、JPEG、GIF 或 WebP 图片。', bad_confirm: '请输入你的用户名来确认。', auth_failed: '登录服务暂时出错了，请稍后再试。', forbidden: '只有管理员能这样做。', conflict: '刚才有冲突，请再试一次。', internal: '服务器出错了，请稍后再试。',
 };
 
 export class ApiError extends Error {
   constructor(status, message, code) { super(message); this.status = status; this.code = code; }
 }
 
-export async function api(path, { method = 'GET', body, raw } = {}) {
+export async function api(path, { method = 'GET', body, raw, type = 'application/json' } = {}) {
   const init = { method, credentials: 'same-origin', headers: {} };
-  if (raw) { init.body = raw; init.headers['Content-Type'] = 'application/json'; }
+  if (raw) { init.body = raw; init.headers['Content-Type'] = type; }
   else if (body !== undefined) { init.body = JSON.stringify(body); init.headers['Content-Type'] = 'application/json'; }
   let response;
   try { response = await fetch(`/api/${path}`, init); } catch { throw new ApiError(0, say.failed, 'offline'); }
