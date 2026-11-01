@@ -1,0 +1,83 @@
+/* The skin market: /skins/, /skins/<id> and /skins/upload/. Colors and buttons come from style.css. */
+.market-page { background: radial-gradient(60% 40% at 50% 0%, rgba(90, 150, 255, .18), transparent 70%), var(--abyss) }
+.market { padding: 128px 0 96px; min-height: 70vh }
+.market h1 { font-size: clamp(34px, 4.6vw, 52px); margin: 0 0 12px; text-align: left }
+.market h2 { font-size: 24px; margin: 48px 0 18px }
+.market-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap }
+.market-head .sub { max-width: 720px; font-size: 16px }
+.market-tools { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 36px 0 24px }
+.segmented { display: inline-flex; padding: 4px; border-radius: 999px; background: var(--glass); border: 1px solid var(--line) }
+.segmented button { border: 0; background: none; padding: 6px 16px; border-radius: 999px; color: var(--soft); font-size: 14px }
+.segmented button[aria-pressed="true"] { background: rgba(156, 200, 255, .16); color: var(--text) }
+.market select, .market input:not([type="checkbox"]):not([type="file"]), .market textarea {
+  font: inherit; font-size: 14px; color: var(--text); background: rgba(7, 11, 31, .6); border: 1px solid var(--line); border-radius: 12px; padding: 8px 14px }
+.market textarea { width: 100%; resize: vertical; border-radius: 12px }
+.market input[type="search"] { flex: 1; min-width: 200px; border-radius: 999px }
+.market select:focus-visible, .market input:focus-visible, .market textarea:focus-visible { outline: 2px solid var(--foam); outline-offset: 2px }
+.market-status { color: var(--soft); margin: 24px 0 }
+.market [hidden] { display: none !important }
+.market-more { display: flex; justify-content: center; margin-top: 32px }
+
+.skin-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 18px }
+.skin-grid .empty { color: var(--dim) }
+.skin-card a { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 14px; border-radius: 20px; background: var(--glass); border: 1px solid var(--line); transition: transform .15s, border-color .2s }
+.skin-card a:hover { transform: translateY(-2px); border-color: rgba(156, 200, 255, .4) }
+.skin-art { aspect-ratio: 1; display: grid; place-items: center; border-radius: 14px; background: radial-gradient(circle at 50% 60%, rgba(79, 134, 255, .22), transparent 70%); margin-bottom: 8px }
+.skin-art img { width: 80%; height: 80%; object-fit: contain }
+.skin-card-name { font-size: 16px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.skin-card-by { color: var(--soft); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.skin-card-meta { display: flex; gap: 8px; align-items: center; color: var(--dim); font-size: 12px; margin-top: 4px }
+.tag { padding: 1px 8px; border-radius: 999px; font-size: 11px; background: rgba(156, 200, 255, .12); color: var(--foam) }
+.tag.whale { background: rgba(255, 207, 122, .14); color: var(--tea) }
+.tag.hidden { background: rgba(255, 181, 71, .16); color: var(--waiting) }
+
+.back { display: inline-block; font-size: 14px; margin-bottom: 20px }
+.skin-detail { display: grid; grid-template-columns: minmax(260px, 400px) 1fr; gap: 48px; align-items: start }
+.skin-stage { position: sticky; top: 96px; aspect-ratio: 1; display: grid; place-items: center; border-radius: 28px; background: radial-gradient(circle at 50% 62%, rgba(79, 134, 255, .3), rgba(13, 24, 56, .6) 72%); border: 1px solid var(--line) }
+.skin-stage img { width: 78%; height: 78%; object-fit: contain }
+.skin-info .skin-name { margin: 0 0 8px; overflow-wrap: anywhere }
+.skin-by { color: var(--soft); margin: 0 0 16px }
+.skin-desc { white-space: pre-line; margin: 0 0 24px; overflow-wrap: anywhere }
+.skin-info .cta { justify-content: flex-start }
+.hint { color: var(--dim); font-size: 13px; margin: 12px 0 }
+.skin-facts { display: grid; grid-template-columns: max-content 1fr; gap: 8px 20px; margin: 28px 0; font-size: 14px }
+.skin-facts dt { color: var(--dim) }
+.skin-facts dd { margin: 0; min-width: 0 }
+.skin-facts small { color: var(--dim) }
+.sha { font: 12px var(--mono); color: var(--soft); overflow-wrap: anywhere }
+.owner-tools { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 16px; border-radius: 16px; border: 1px dashed rgba(255, 181, 71, .4); margin-bottom: 20px }
+.owner-tools p { width: 100%; margin: 0 }
+.hidden-note { color: var(--waiting) }
+.report summary { cursor: pointer; color: var(--dim); font-size: 13px }
+.report form { display: grid; gap: 10px; margin-top: 10px; justify-items: start }
+.form-note { font-size: 13px; color: var(--soft) }
+
+.pose-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px }
+.pose-grid button { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px; border-radius: 16px; background: var(--glass); border: 1px solid var(--line) }
+.pose-grid button[aria-pressed="true"] { border-color: var(--tea) }
+.pose-grid img { width: 100px; height: 100px; object-fit: contain }
+.pose-grid span { font-size: 14px }
+.pose-grid small { font-size: 11px; color: var(--dim) }
+
+.upload-page .sub { font-size: 16px; max-width: 720px }
+.panel { display: grid; gap: 14px; justify-items: start; max-width: 720px; margin-top: 28px; padding: 24px; border-radius: 20px; background: var(--glass); border: 1px solid var(--line) }
+.panel p { margin: 0 }
+.row { display: flex; gap: 10px; flex-wrap: wrap }
+.row input { min-width: 260px }
+.whoami { color: var(--soft); font-size: 14px; margin-top: 28px }
+.link-button { background: none; border: 0; padding: 0; color: var(--foam) }
+.file-pick input { font-size: 14px; color: var(--soft) }
+.file-pick span { display: block; font-size: 13px; color: var(--dim); margin-top: 4px }
+.pack-preview { width: 100% }
+.thumbs { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px }
+.thumbs figure { margin: 0; text-align: center; font-size: 11px; color: var(--dim) }
+.thumbs img { width: 72px; height: 72px; object-fit: contain; border-radius: 10px; background: rgba(79, 134, 255, .14) }
+.row-label { display: flex; gap: 10px; align-items: center; font-size: 14px; color: var(--soft) }
+.consent { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--soft) }
+.consent input { margin-top: 5px }
+
+@media (max-width: 860px) {
+  .skin-detail { grid-template-columns: 1fr; gap: 28px }
+  .skin-stage { position: static; max-width: 360px }
+  .skin-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) }
+}

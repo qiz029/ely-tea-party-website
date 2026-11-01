@@ -76,6 +76,10 @@
   "en": "aria-label=\"Main\""
  },
  {
+  "zh": "<a href=\"/skins/\">皮肤市场</a>",
+  "en": "<a href=\"/en/skins/\">Skins</a>"
+ },
+ {
   "zh": "<a href=\"/releases/\">更新日志</a>",
   "en": "<a href=\"/en/releases/\">Changelog</a>"
  },

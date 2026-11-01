@@ -44,6 +44,11 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
       - run: npm run build
         working-directory: website
+      # The skin market's tables; the token needs D1: Edit as well as Workers.
+      - name: Apply database migrations
+        if: env.CLOUDFLARE_API_TOKEN != ''
+        run: npx --yes wrangler@4.154.0 d1 migrations apply ely-tea-party-market --remote
+        working-directory: website
       - name: Deploy to Cloudflare
         if: env.CLOUDFLARE_API_TOKEN != ''
         run: npx --yes wrangler@4.154.0 deploy
