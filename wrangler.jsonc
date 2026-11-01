@@ -20,7 +20,7 @@
     // Report mail to the moderators goes out from here.
     "EMAIL_FROM": "login@auth.elyteaparty.com",
     // WorkOS AuthKit signs people in; its API key is the secret WORKOS_API_KEY.
-    "WORKOS_CLIENT_ID": "",
+    "WORKOS_CLIENT_ID": "client_01M6ATPNN8CRMV81J1T64SG034",
     // Moderators: they see hidden skins, restore or remove them, and get report mail.
     "ADMIN_EMAILS": "loveyouforever36@gmail.com"
   },
