@@ -49,6 +49,18 @@ a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px soli
 .tea { background: var(--tea); color: var(--tea-ink); box-shadow: 0 8px 28px rgba(255, 207, 122, .22) }
 .tea:hover { box-shadow: 0 10px 36px rgba(255, 207, 122, .42) }
 .site-header nav .tea { color: var(--tea-ink) }
+/* the header's account corner: "Sign in", or a picture that opens a menu (account.js) */
+.site-header nav .account { padding: 3px 12px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px }
+.avatar { width: var(--size, 32px); height: var(--size, 32px); border-radius: 50%; object-fit: cover; flex: none; background: var(--glass) }
+.avatar.initial { display: inline-grid; place-items: center; font-weight: 700; font-size: calc(var(--size, 32px) * .42); color: var(--tea-ink); background: linear-gradient(135deg, var(--tea), #ff9e7a) }
+.account-menu { position: relative }
+.account-toggle { display: grid; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: none; cursor: pointer }
+.account-toggle:focus-visible { outline: 2px solid var(--foam); outline-offset: 2px }
+.account-list { position: absolute; right: 0; top: calc(100% + 10px); min-width: 180px; display: grid; padding: 6px; border-radius: 14px; background: rgba(13, 24, 56, .96); border: 1px solid var(--line); box-shadow: 0 18px 40px rgba(0, 0, 0, .4) }
+.account-list[hidden] { display: none }
+.account-list a, .account-list button { display: block; text-align: left; padding: 8px 12px; border: 0; border-radius: 10px; background: none; color: var(--soft); font: inherit; font-size: 14px; cursor: pointer }
+.account-list a:hover, .account-list button:hover, .account-list a:focus-visible, .account-list button:focus-visible { background: rgba(156, 200, 255, .1); color: var(--text) }
+.account-who { margin: 0; padding: 6px 12px 8px; font-size: 12px; color: var(--dim); border-bottom: 1px solid var(--line); margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis }
 .ghost { border: 1px solid rgba(156, 200, 255, .3); color: var(--text) }
 .ghost:hover { background: rgba(156, 200, 255, .08); border-color: rgba(156, 200, 255, .5) }
 .text-link { color: var(--foam) }
@@ -283,7 +295,7 @@ kbd { display: inline-block; min-width: 1.6em; padding: 0 5px; margin: 0 1px; bo
   .cast { grid-template-columns: 1fr; gap: 8px }
 }
 @media (max-width: 860px) {
-  .site-header nav a:not(.button, .lang) { display: none }
+  .site-header nav a:not(.button, .lang, .account) { display: none }
   .section { padding: 88px 0 }
   .heading.split { display: block }
   .faq-inner, .footer-inner { grid-template-columns: 1fr; gap: 24px }

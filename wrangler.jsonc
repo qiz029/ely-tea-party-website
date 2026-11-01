@@ -3,13 +3,13 @@
   "name": "ely-tea-party-website",
   "account_id": "221784d24eb2a95d148bc96b6f06d6be",
   "compatibility_date": "2026-10-27",
-  // The Worker answers the skin market's API and per-skin pages; everything else is dist/ as built.
+  // The Worker answers the skin market's API, per-skin pages and profiles; everything else is dist/ as built.
   "main": "worker/index.js",
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
     "not_found_handling": "404-page",
-    "run_worker_first": ["/api/*", "/skins/*", "/en/skins/*"]
+    "run_worker_first": ["/api/*", "/skins/*", "/en/skins/*", "/u/*", "/en/u/*"]
   },
   "d1_databases": [
     { "binding": "DB", "database_name": "ely-tea-party-market", "database_id": "c91ce8da-afa4-4602-b552-5b762b2ba2c1", "migrations_dir": "migrations" }
@@ -17,11 +17,14 @@
   "r2_buckets": [{ "binding": "SKINS", "bucket_name": "ely-tea-party-skins" }],
   "send_email": [{ "name": "EMAIL", "allowed_sender_addresses": ["login@auth.elyteaparty.com"] }],
   "vars": {
+    // Report mail to the moderators goes out from here.
     "EMAIL_FROM": "login@auth.elyteaparty.com",
+    // WorkOS AuthKit signs people in; its API key is the secret WORKOS_API_KEY.
+    "WORKOS_CLIENT_ID": "",
     // Moderators: they see hidden skins, restore or remove them, and get report mail.
     "ADMIN_EMAILS": "loveyouforever36@gmail.com"
   },
-  // SECRET (wrangler secret put SECRET) keys code and reporter hashes.
+  // Secrets: SECRET keys the rate-limit and reporter hashes; WORKOS_API_KEY talks to WorkOS.
   "observability": { "enabled": true },
   "routes": [
     { "pattern": "elyteaparty.com", "custom_domain": true },

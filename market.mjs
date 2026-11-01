@@ -1,5 +1,6 @@
 // The skin market's pages: /skins/ (browse), /skins/item/ (the template the Worker serves at /skins/<id>)
 // and /skins/upload/, in Chinese and English. Their contents come from the API at run time.
+// Sign-in, settings and profiles are in accounts.mjs, which builds on shell() here.
 
 const words = {
   zh: {
@@ -17,11 +18,9 @@ const words = {
     itemTitle: '角色皮肤 — Ely Tea Party 皮肤市场',
     uploadTitle: '上传皮肤 — Ely Tea Party 皮肤市场',
     uploadLead: '在 App 的“设置 → 角色”里换好形象、填写“角色包信息”，再用“导出角色包…”得到 .elyskin 文件，就可以上传到这里。',
-    email: '邮箱', sendCode: '发送验证码', code: '验证码', signIn: '登录', signInLead: '用邮箱验证码登录，不需要密码。',
-    handle: '用户名', handleLead: '选一个用户名，它会显示在你分享的皮肤上，皮肤 ID 也以它开头。设定后不能修改。', handleSave: '确定',
     file: '选择 .elyskin 文件', replace: '发布为', replaceNew: '新的皮肤',
     consent: '这些图片是我自己创作的，或者我有权分享；我同意它们在这里公开展示和下载。',
-    publish: '发布', mine: '我的皮肤', signOut: '退出登录',
+    publish: '发布', mine: '管理已发布的皮肤，去我的主页 →',
   },
   en: {
     market: 'Skin market',
@@ -38,17 +37,15 @@ const words = {
     itemTitle: 'Character skin — Ely Tea Party skins',
     uploadTitle: 'Upload a skin — Ely Tea Party skins',
     uploadLead: 'In the app, set up a character under Settings → Characters, fill in Pack info, then use Export skin… to get an .elyskin file you can upload here.',
-    email: 'Email', sendCode: 'Send code', code: 'Code', signIn: 'Sign in', signInLead: 'Sign in with a code sent to your email. No password.',
-    handle: 'Handle', handleLead: 'Pick a handle. It shows on the skins you share, and their ids start with it. It can’t be changed later.', handleSave: 'Save',
     file: 'Choose an .elyskin file', replace: 'Publish as', replaceNew: 'A new skin',
     consent: 'I made these images or have the right to share them, and I agree to them being shown and downloaded here.',
-    publish: 'Publish', mine: 'My skins', signOut: 'Sign out',
+    publish: 'Publish', mine: 'Manage your skins on your profile →',
   },
 };
 
-const escape = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+export const escape = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-function shell(lang, chrome, { title, description, path, robots = 'index, follow', body, script }) {
+export function shell(lang, chrome, { title, description, path, robots = 'index, follow', body, script }) {
   const self = `https://elyteaparty.com${lang === 'en' ? '/en' : ''}${path}`;
   return `<!doctype html>
 <html lang="${lang === 'en' ? 'en' : 'zh-CN'}">
@@ -138,19 +135,7 @@ export function renderMarket(lang, chrome) {
     <h1>${w.upload}</h1>
     <p class="sub">${w.uploadLead}</p>
     <p class="market-status" id="status" role="status">${w.loading}</p>
-    <section class="panel" id="signin" hidden>
-      <p>${w.signInLead}</p>
-      <form id="email-form" class="row"><label class="sr-only" for="email">${w.email}</label><input id="email" type="email" autocomplete="email" required placeholder="${w.email}"><button class="button tea small" type="submit">${w.sendCode}</button></form>
-      <form id="code-form" class="row" hidden><label class="sr-only" for="code">${w.code}</label><input id="code" inputmode="numeric" autocomplete="one-time-code" pattern="\\d{6}" maxlength="6" required placeholder="${w.code}"><button class="button tea small" type="submit">${w.signIn}</button></form>
-      <span class="form-note" role="status"></span>
-    </section>
-    <section class="panel" id="handle" hidden>
-      <p>${w.handleLead}</p>
-      <form id="handle-form" class="row"><label class="sr-only" for="handle-input">${w.handle}</label><input id="handle-input" required minlength="2" maxlength="24" pattern="[a-z0-9](?:[a-z0-9\\-]{0,22}[a-z0-9])?" placeholder="${w.handle}"><button class="button tea small" type="submit">${w.handleSave}</button></form>
-      <span class="form-note" role="status"></span>
-    </section>
     <section id="publish" hidden>
-      <p class="whoami"><span id="who"></span> · <button type="button" class="link-button" id="sign-out">${w.signOut}</button></p>
       <form class="panel" id="upload-form">
         <label class="file-pick"><input id="file" type="file" accept=".elyskin,application/json" required><span>${w.file}</span></label>
         <div class="pack-preview" id="preview" hidden></div>
@@ -159,8 +144,7 @@ export function renderMarket(lang, chrome) {
         <button class="button tea" type="submit">${w.publish}</button>
         <span class="form-note" role="status"></span>
       </form>
-      <h2>${w.mine}</h2>
-      <ul class="skin-grid" id="mine"></ul>
+      <p class="whoami"><a class="text-link" id="mine" href="#">${w.mine}</a></p>
     </section>
   </main>`,
   });

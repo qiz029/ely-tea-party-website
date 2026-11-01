@@ -1,5 +1,5 @@
 // /skins/ lists the market; /skins/<id> (the item template) shows one skin.
-import { api, say, home, card, el, size, AGENT_ACTIONS, WHALE_ACTIONS } from '/market.js';
+import { api, say, home, prefix, card, el, size, AGENT_ACTIONS, WHALE_ACTIONS } from '/market.js';
 
 const main = document.querySelector('main');
 const status = document.querySelector('#status');
@@ -69,10 +69,11 @@ function tools(skin, id) {
       await api(`skins/${id}/status`, { method: 'POST', body: { status: skin.status === 'hidden' ? 'public' : 'hidden' } });
       location.reload();
     }) : null,
+    skin.mine ? el('a', { class: 'button ghost small', href: `${home}upload/?replace=${encodeURIComponent(id)}` }, say.update) : null,
     act(say.remove, async () => {
       if (!confirm(say.confirmRemove)) return;
       await api(`skins/${id}`, { method: 'DELETE' });
-      location.href = skin.mine ? `${home}upload/` : home;
+      location.href = skin.mine ? `${prefix}/u/${skin.uploader}` : home;
     }),
     note,
   );
@@ -90,7 +91,8 @@ async function item() {
   show('');
   document.title = document.title.replace(/^[^—]*/, `${skin.name} `);
   document.querySelector('.skin-name').textContent = skin.name;
-  document.querySelector('#by').replaceChildren(say.by(skin.author), ' · ', say.uploader(skin.uploader));
+  document.querySelector('#by').replaceChildren(say.by(skin.author), ' · ',
+    el('a', { class: 'text-link', href: `${prefix}/u/${skin.uploader}` }, say.uploader(skin.uploader)));
   const desc = document.querySelector('#desc');
   desc.textContent = skin.description ?? '';
   desc.hidden = !skin.description;

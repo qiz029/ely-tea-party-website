@@ -1,3 +1,4 @@
+import '/account.js';
 import { cast, poses, quipFor } from '/cast.js';
 
 const english = document.documentElement.lang === 'en';

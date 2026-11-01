@@ -130,6 +130,7 @@ export function renderChangelog(lang, releases, chrome, translated = {}) {
   <link rel="icon" type="image/png" href="/assets/icon.png">
   <link rel="apple-touch-icon" href="/assets/icon.png">
   <link rel="stylesheet" href="/style.css">
+  <script type="module" src="/account.js"></script>
 </head>
 <body class="changelog">
   ${chrome.header}

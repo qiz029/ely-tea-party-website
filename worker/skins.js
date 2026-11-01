@@ -12,7 +12,7 @@ const ID = /^[a-z0-9][a-z0-9.-]{1,62}[a-z0-9]$/;
 const folder = (id, sha) => `skins/${id}/${sha.slice(0, 16)}`;
 
 // What a page shows about a skin; images by URL, never the pack's bytes.
-function present(row, viewer, admin) {
+export function present(row, viewer, admin) {
   const actions = JSON.parse(row.actions);
   const base = `/api/skins/${row.id}/img/${row.sha256.slice(0, 16)}`;
   return {
@@ -39,7 +39,7 @@ function present(row, viewer, admin) {
   };
 }
 
-const SELECT = 'SELECT s.*, u.handle, (SELECT count(*) FROM reports r WHERE r.skin_id = s.id) AS reports FROM skins s JOIN users u ON u.id = s.user_id';
+export const SELECT = 'SELECT s.*, u.handle, (SELECT count(*) FROM reports r WHERE r.skin_id = s.id) AS reports FROM skins s JOIN users u ON u.id = s.user_id';
 
 async function load(env, id) {
   if (!ID.test(id)) return null;
@@ -128,7 +128,7 @@ function slug(name) {
   return ascii.length >= 2 ? ascii : Math.random().toString(36).slice(2, 8);
 }
 
-async function removeFiles(env, id, sha) {
+export async function removeFiles(env, id, sha) {
   const prefix = sha ? `${folder(id, sha)}/` : `skins/${id}/`;
   for (let cursor; ;) {
     const listed = await env.SKINS.list({ prefix, cursor });

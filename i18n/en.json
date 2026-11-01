@@ -80,6 +80,10 @@
   "en": "<a href=\"/en/skins/\">Skins</a>"
  },
  {
+  "zh": "<a class=\"account\" href=\"/login/\">登录</a>",
+  "en": "<a class=\"account\" href=\"/en/login/\">Sign in</a>"
+ },
+ {
   "zh": "<a href=\"/releases/\">更新日志</a>",
   "en": "<a href=\"/en/releases/\">Changelog</a>"
  },

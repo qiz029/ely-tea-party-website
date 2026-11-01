@@ -1,4 +1,4 @@
-/* The skin market: /skins/, /skins/<id> and /skins/upload/. Colors and buttons come from style.css. */
+/* The skin market and accounts: /skins/, /skins/<id>, /skins/upload/, /login/, /settings/ and /u/<handle>. Colors and buttons come from style.css. */
 .market-page { background: radial-gradient(60% 40% at 50% 0%, rgba(90, 150, 255, .18), transparent 70%), var(--abyss) }
 .market { padding: 128px 0 96px; min-height: 70vh }
 .market h1 { font-size: clamp(34px, 4.6vw, 52px); margin: 0 0 12px; text-align: left }
@@ -76,7 +76,45 @@
 .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--soft) }
 .consent input { margin-top: 5px }
 
+/* /login/ */
+.login-page { display: grid; place-items: start center }
+.login-card { width: min(440px, 100%); justify-items: stretch; padding: 32px; margin-top: 0 }
+.login-card h1 { margin: 0; font-size: 32px }
+.login-card .sub { margin: 0 0 8px; font-size: 15px }
+.provider { gap: 10px; justify-content: center }
+.provider:not(.ghost) { background: #fff; color: #1f2430 }
+.provider svg { flex: none }
+.login-error { margin: 0; padding: 10px 14px; border-radius: 12px; background: rgba(255, 120, 120, .12); color: #ffb4b4; font-size: 14px }
+
+/* /settings/ */
+.settings-page .panel h2, .panel h2 { margin: 0; font-size: 20px }
+.field { display: grid; gap: 6px; width: 100%; font-size: 14px; color: var(--soft); border: 0; padding: 0; margin: 0 }
+.field legend { padding: 0; margin-bottom: 6px }
+.field input, .field textarea { width: 100%; box-sizing: border-box }
+.links { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+.picture-row { display: flex; gap: 20px; align-items: center }
+.picture-row > div { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.picture-row .hint { width: 100%; margin: 0 }
+.file-button { cursor: pointer }
+.file-button:focus-within { outline: 2px solid var(--foam); outline-offset: 2px }
+.panel.danger { border-color: rgba(255, 120, 120, .3) }
+.button.danger { background: rgba(255, 110, 110, .16); color: #ffb4b4; border: 1px solid rgba(255, 120, 120, .4) }
+
+/* /u/<handle> */
+.profile { display: flex; gap: 32px; align-items: flex-start }
+.profile .avatar { border: 2px solid var(--line) }
+.profile-info { min-width: 0 }
+.profile-info .profile-name { margin: 0; overflow-wrap: anywhere }
+.profile-handle { color: var(--soft); margin: 4px 0 0 }
+.profile-bio { white-space: pre-line; margin: 16px 0 0; max-width: 640px; overflow-wrap: anywhere }
+.profile-links { list-style: none; display: flex; flex-wrap: wrap; gap: 6px 18px; padding: 0; margin: 12px 0 0; font-size: 14px }
+.profile-links:empty { display: none }
+.profile-stats { color: var(--dim); font-size: 14px; margin: 12px 0 0 }
+.profile-info .cta { justify-content: flex-start; margin-top: 18px }
+
 @media (max-width: 860px) {
+  .profile { flex-direction: column; gap: 18px }
+  .links { grid-template-columns: 1fr }
   .skin-detail { grid-template-columns: 1fr; gap: 28px }
   .skin-stage { position: static; max-width: 360px }
   .skin-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)) }

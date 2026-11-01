@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { renderChangelog } from './changelog.mjs';
 import { renderMarket } from './market.mjs';
+import { renderAccounts } from './accounts.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const dist = path.join(root, 'dist');
@@ -79,8 +80,8 @@ for (const [lang, page] of Object.entries(pages)) {
   const translations = path.join(root, 'data', `releases.${lang}.json`);
   const translated = existsSync(translations) ? JSON.parse(await readFile(translations, 'utf8')) : {};
   await writeFile(path.join(dist, home, 'releases', 'index.html'), renderChangelog(lang, releases, chrome, translated));
-  // The skin market's pages, each with the language switch pointing at its own counterpart.
-  for (const [file, html] of Object.entries(renderMarket(lang, chrome))) {
+  // The skin market's and accounts' pages, each with the language switch pointing at its own counterpart.
+  for (const [file, html] of Object.entries({ ...renderMarket(lang, chrome), ...renderAccounts(lang, chrome) })) {
     const page = path.dirname(file) + '/';
     const header = chrome.header.replace(/(class="lang" href="[^"]*)releases\/"/, `$1${page}"`);
     await mkdir(path.join(dist, home, path.dirname(file)), { recursive: true });

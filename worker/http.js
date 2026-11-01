@@ -58,3 +58,16 @@ export function sameOrigin(request) {
   if (origin && origin !== new URL(request.url).origin) throw new HttpError(403, 'cross-origin request refused');
   if (!origin && request.headers.get('sec-fetch-site') && request.headers.get('sec-fetch-site') !== 'same-origin') throw new HttpError(403, 'cross-origin request refused');
 }
+
+const bidi = /[؜‎‏‪-‮⁦-⁩]/;
+// Text a person typed for a profile, trimmed; null when empty. Refuses control and bidirectional characters.
+export function cleanText(value, most, field, { lines = false } = {}) {
+  if (value === undefined || value === null) return null;
+  if (typeof value !== 'string') throw new HttpError(400, `${field} must be text`, 'bad_profile');
+  const text = value.replace(/\r\n?/g, '\n').trim();
+  if ([...text].length > most) throw new HttpError(400, `${field} is longer than ${most} characters`, 'bad_profile');
+  // eslint-disable-next-line no-control-regex
+  const controls = lines ? /[\u0000-\u0009\u000B-\u001F\u007F-\u009F]/ : /[\u0000-\u001F\u007F-\u009F]/;
+  if (controls.test(text) || bidi.test(text)) throw new HttpError(400, `${field} holds a control or bidirectional character`, 'bad_profile');
+  return text || null;
+}
