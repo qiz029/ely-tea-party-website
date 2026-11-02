@@ -27,10 +27,12 @@ jobs:
           node-version: 22
       - id: mirror
         run: node scripts/mirror.mjs
+      # The count needs no new release, so a failed mirror doesn't stop it; the run still fails.
       - id: downloads
+        if: ${{ !cancelled() }}
         run: node scripts/downloads.mjs
       - name: Redeploy the site with the new downloads
-        if: steps.mirror.outputs.published == 'true' || steps.downloads.outputs.changed == 'true'
+        if: ${{ !cancelled() && (steps.mirror.outputs.published == 'true' || steps.downloads.outputs.changed == 'true') }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh workflow run deploy.yml --ref main
